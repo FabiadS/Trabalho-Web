@@ -6,6 +6,10 @@ window.addEventListener('DOMContentLoaded', event => {
     startConnection(id, passwd)
   })
 
+  O('tela-login-cadastro').addEventListener('click', function () {
+    mostra('tela-mostra-cadastro')
+  })
+
   O('botao-menu-meuAlbum').addEventListener('click', function () {
     mostra('tela-mostra-album')
   })

@@ -31,3 +31,48 @@ const port = 3000 // Port we will listen on
 
 // Function to listen on the port
 app.listen(port, () => console.log(`This app is listening on port ${port}`))
+
+const wss = new WebSocket.Server({ port: 8000 }, function () {
+  console.log('O servidor de websockets esta rodando na porta 8000')
+})
+
+var clientesOnline = []
+wss.on('connection', function connection(ws) {
+  ws.on('message', function incoming(message) {
+    var m = JSON.parse(message)
+
+    switch (m.tipo) {
+      case 'login':
+        if (m.id == 'aluno' && m.passwd == 'aluno') {
+          // sucesso
+          ws.login = m.id
+          ws.send(JSON.stringify({ tipo: 'login', valor: 'sucesso' }))
+          clientesOnline.push(ws)
+          console.log(
+            'Cliente aceito. Atualmente existem ' +
+              clientesOnline.length +
+              ' cliente(s) online'
+          )
+        } else {
+          ws.send(JSON.stringify({ tipo: 'login', valor: 'falha' }))
+          console.log('Recebeu mensagem de login:recusado')
+          ws.close()
+        }
+        break
+    }
+  })
+  ws.on('close', function (code) {
+    for (let x = 0; x < clientesOnline.length; x++) {
+      if (clientesOnline[x] == ws) {
+        clientesOnline.splice(x, 1)
+        break
+      }
+    }
+
+    console.log(
+      'Cliente desconectou. Atualmente existem ' +
+        clientesOnline.length +
+        ' cliente(s) online'
+    )
+  })
+})

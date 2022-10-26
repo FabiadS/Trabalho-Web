@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Site figurinhas</title>
+  <link rel="icon" type="image/png" sizes="16x16"  href="/public/images/favicon-16x16.png">
+</head>
+<body>
+
+  <div id="container-login">
+    <h1> FIGURINHAS COPA 2022 </h1>
+      <p>Somos uma comunidade online para você encontrar seu match de figurinhas</p>
+        <div class="login-field">
+          <label>Usuário: </label>
+          <input type="email" name= "email">
+        </div>
+        <div class="login-field">
+          <label> Senha: </label>
+          <input type="password" name="senha">
+        </div>
+        <button type="submit" value="login">Entrar</button>
+      <button> Cadastrar-se</button>
+  </div>
+
+  <div id="container-busca">
+    <h1> Busca </h1>
+    <p> Vamos fazer o match perfeito? </p>
+    <div class="button">
+        <button class="match" type="submit">Match</button>
+    </div>
+    <button> Alterar dados</button>
+  </div>
+
+  <div id="container-cadastro">
+    <h1> Cadastro </h1>
+      <div class="cadastrar">
+        <label for="nome" class="form-label"><strong>Nome</strong></label><br>
+        <input class="input" id="nome" name="nome" type="text" placeholder="Seu nome..." maxlength="50"><br>
+      </div>
+      <div class="cadastrar">
+        <label for="email" class="form-label"><strong>E-mail</strong></label><br>
+        <input class="input" id="email" name="email" type="email" placeholder="ex: figurinha@gmail.com" maxlength="60"><br>
+      </div>
+      <div class="cadastrar">
+        <label for="senha" class="form-label"><strong>Senha</strong></label><br>
+        <input class="input" type="password" name="senha" placeholder="ex. 1234">
+      </div>
+      <div class="cadastrar">
+        <label for="cidade" class="form-label"><strong>Cidade</strong></label><br>
+        <input class="input" id="cidade" name="cidade" type="text" placeholder="ex: Cuiabá"><br>
+      </div>
+      <div class="cadastrar">
+        <label for="estado" class="form-label"><strong>Estado</strong></label><br>
+        <input class="input" id="estado" name="estado" type="text" maxlength="2" onChange="maiusculo()"  placeholder="ex: MT"><br><br>
+      </div>
+      <div class="cadastrar">
+        <label for="telefone" class="form-label"><strong>Telefone</strong></label><br>
+        <input class="input" id="telefone" name="telefone" type="text" placeholder="ex: +55 (95) 952145634"><br><br>
+      </div>
+      <div class="button">
+        <button type="submit" value="Cadastrar">Cadastrar</button>
+      </div>
+    <div class="button">
+      <button class="voltar" type="submit">Voltar</button>
+    </div>
+  </div>
+
+  <div id="container-perfil">
+    <h1> Perfil </h1>
+      <div class="perfil">
+          <label>Figurinhas Repetidas: </label>
+          <input type="text" name="figurinhas_rep">
+      </div>
+      <div class="perfil">
+          <label>Figurinhas que faltam: </label>
+          <input type="text" name="figurinhas_preciso">
+      </div>
+      <button type="submit" value="Enviar"></button>
+  </div>
+
+  <div id="match">
+
+  </div>
+
+
+</body>
+</html>

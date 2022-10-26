@@ -17,8 +17,9 @@ MongoClient.connect(
     dbo = db.db('figurinhas') // O banco de dadoos se chama " figurinhas"
   }
 )
+app.use(express.static(__dirname + '/public'))
 
-app.get(/^(.+)$/, (req, res) => {
+app.get(/^(.+)$/, function (req, res) {
   try {
     res.write('A pagina que vc busca nao existe')
     res.end()
@@ -27,10 +28,11 @@ app.get(/^(.+)$/, (req, res) => {
   }
 })
 
-const port = 3000 // Port we will listen on
-
-// Function to listen on the port
-app.listen(port, () => console.log(`This app is listening on port ${port}`))
+app.listen(3000, function () {
+  console.log(
+    'SERVIDOR WEB na porta 3000. O cliente precisa acessar via browser http://[IP]:3000 para acessar a aplicacao'
+  )
+})
 
 const wss = new WebSocket.Server({ port: 8000 }, function () {
   console.log('O servidor de websockets esta rodando na porta 8000')

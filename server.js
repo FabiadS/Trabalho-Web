@@ -66,6 +66,7 @@ wss.on('connection', function connection(ws) {
 
       //db.collection.updateMany({}, {$set:{"trocar": null}}) //criou nova collection
 
+
       case 'trocarFigurinha':
         ws.figtrocas = m.figtrocas
         info = { 'figurinhas_rep': ws.figtrocas }
@@ -88,7 +89,6 @@ wss.on('connection', function connection(ws) {
 
         }
         break
-
       case 'cadastro':
         ws.id = m.id
         ws.passwd = m.passwd
@@ -99,7 +99,7 @@ wss.on('connection', function connection(ws) {
         info = { 'email': ws.id, 'senha': ws.passwd, 'nome': ws.nome, 'cidade': ws.cidade, 'estado': String(ws.estado).toUpperCase(), 'telefone': ws.telefone }
         console.log(info)
 
-        if (m.id == '' || ws.passwd == '' || m.nome == '' || m.cidade == '' || m.estado == '' || m.telefone == '') {
+        if (ws.id == '' || ws.passwd == '' || m.nome == '' || m.cidade == '' || m.estado == '' || m.telefone == '') {
           ws.send(JSON.stringify({ tipo: 'cadastro', valor: 'falha' }))
           console.log('Recebeu mensagem de cadastro: recusado')
           ws.close()
@@ -111,8 +111,13 @@ wss.on('connection', function connection(ws) {
               console.log('1 document inserted')
             }
             ws.send(JSON.stringify({ tipo: 'cadastro', valor: 'cadastro_okay' }))
+            
           })
         }
+        break
+
+        case 'fazLogout':
+        
         break
 
     }

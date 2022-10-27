@@ -84,7 +84,7 @@ wss.on('connection', function connection(ws) {
       case 'cadastro':
         ws.id = m.id
         ws.passwd = m.passwd
-        ws.nome = m.passwd
+        ws.nome = m.nome
         ws.cidade = m.cidade
         ws.estado = m.estado
         ws.telefone = m.telefone
@@ -108,8 +108,6 @@ wss.on('connection', function connection(ws) {
         break
 
     }
-
-
   })
   ws.on('close', function (code) {
     for (let x = 0; x < clientesOnline.length; x++) {

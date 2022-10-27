@@ -81,8 +81,6 @@ wss.on('connection', function connection(ws) {
           ws.send(JSON.stringify({ tipo: 'cadastro', valor: 'cadastro_okay' }))
         }
       break
-
-
         
     }
   })

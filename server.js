@@ -124,23 +124,25 @@ wss.on('connection', async function connection(ws) {
           'telefone': ws.telefone
         }
 
-    }
-    console.log(info)
 
-    if (ws.id == '' || ws.passwd == '' || m.nome == '' || m.cidade == '' || m.estado == '' || m.telefone == '') {
-      ws.send(JSON.stringify({ tipo: 'cadastro', valor: 'falha' }))
-      console.log('Recebeu mensagem de cadastro: recusado')
-      ws.close()
-    } else {
-      dbo.collection('Usuarios').insertOne(info, function (err, result) {
-        if (err) {
-          console.log('erro inserindo elemento')
+        console.log(info)
+
+        if (ws.id == '' || ws.passwd == '' || m.nome == '' || m.cidade == '' || m.estado == '' || m.telefone == '') {
+          ws.send(JSON.stringify({ tipo: 'cadastro', valor: 'falha' }))
+          console.log('Recebeu mensagem de cadastro: recusado')
+          ws.close()
         } else {
-          console.log('1 document inserted')
-        }
-        ws.send(JSON.stringify({ tipo: 'cadastro', valor: 'cadastro_okay' }))
+          dbo.collection('Usuarios').insertOne(info, function (err, result) {
+            if (err) {
+              console.log('erro inserindo elemento')
+            } else {
+              console.log('1 document inserted')
+            }
+            ws.send(JSON.stringify({ tipo: 'cadastro', valor: 'cadastro_okay' }))
 
-      })
+          })
+        }
+        break
     }
   })
   ws.on('close', function (code) {

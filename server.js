@@ -81,7 +81,7 @@ wss.on('connection', async function connection(ws) {
 
       case 'trocarFigurinha':
         ws.figtrocas = m.figtrocas
-        info = { 'figurinhas trocar': ws.figtrocas }
+        info = { 'figurinhas_rep': ws.figtrocas }
         console.log(info)
 
         if (m.figtrocas == '1,2') {
@@ -90,17 +90,27 @@ wss.on('connection', async function connection(ws) {
           )
           console.log('sucesso trocando figurinhas')
         } else {
+        if (m.figtrocas == null) {
           ws.send(JSON.stringify({ tipo: 'trocarFigurinha', valor: 'falha2' }))
           console.log('Figurinhas recusado')
           ws.close()
-        }
+        } else {
+          dbo.collection('Usuarios').insertOne(info, function (err, result) //INSERIR COLUNA E LIGAR AO USUARIO
+          {
+            if (err) {
+              console.log('erro inserindo elemento')
+            } else {
+              console.log('1 document inserted')
+            }
+            ws.send(JSON.stringify({ tipo: 'trocarFigurinha', valor: 'sucessotrocar' }))
+          })
 
-        break
+        }
         break
       case 'cadastro':
         ws.id = m.id
         ws.passwd = m.passwd
-        ws.nome = m.passwd
+        ws.nome = m.nome
         ws.cidade = m.cidade
         ws.estado = m.estado
         ws.telefone = m.telefone
@@ -114,14 +124,7 @@ wss.on('connection', async function connection(ws) {
         }
         console.log(info)
 
-        if (
-          m.id == null ||
-          ws.passwd == null ||
-          m.nome == null ||
-          m.cidade == null ||
-          m.estado == null ||
-          m.telefone == null
-        ) {
+        if (ws.id == '' || ws.passwd == '' || m.nome == '' || m.cidade == '' || m.estado == '' || m.telefone == '') {
           ws.send(JSON.stringify({ tipo: 'cadastro', valor: 'falha' }))
           console.log('Recebeu mensagem de cadastro: recusado')
           ws.close()
@@ -132,11 +135,14 @@ wss.on('connection', async function connection(ws) {
             } else {
               console.log('1 document inserted')
             }
-            ws.send(
-              JSON.stringify({ tipo: 'cadastro', valor: 'cadastro_okay' })
-            )
+            ws.send(JSON.stringify({ tipo: 'cadastro', valor: 'cadastro_okay' }))
+            
           })
         }
+        break
+
+        case 'fazLogout':
+        
         break
     }
   })

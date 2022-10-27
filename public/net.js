@@ -8,6 +8,10 @@ function enviaLogin(id, passwd) {
   websocket.send(JSON.stringify({ tipo: 'login', id: id, passwd: passwd }))
 }
 
+function enviaCadastro(id, passwd, nome, cidade, estado, telefone) {
+  websocket.send(JSON.stringify({ tipo: 'cadastro', id: id, passwd: passwd, nome: nome, cidade: cidade, estado: estado, telefone: telefone }))
+}
+
 function fazLogout() {
   try {
     websocket.close()
@@ -18,6 +22,22 @@ function startConnection(id, passwd) {
   websocket = new ReconnectingWebSocket(servidorWebserver)
   websocket.onopen = function (evt) {
     enviaLogin(id, passwd)
+  }
+  websocket.onclose = function (evt) {
+    onClose(evt)
+  }
+  websocket.onmessage = function (evt) {
+    onMessage(evt)
+  }
+  websocket.onerror = function (evt) {
+    onError(evt)
+  }
+}
+
+function cadastro(email, senha, nome, cidade, estado, telefone) {
+  websocket = new ReconnectingWebSocket(servidorWebserver)
+  websocket.onopen = function (evt) {
+    enviaCadastro(email, senha, nome, cidade, estado, telefone)
   }
   websocket.onclose = function (evt) {
     onClose(evt)
@@ -48,6 +68,19 @@ function onMessage(evt) {
           mostra('tela-login')
         }, 3000)
       }
+    break
+    case 'cadastro':
+      if(msg.valor == 'cadastro_okay')
+      {
+        mostra('tela-login')
+      }else{
+          mostra('tela-falha')
+          websocket.close()
+          setTimeout(function () {
+            mostra('tela-login')
+          }, 3000)
+      }
+    break
   }
 }
 

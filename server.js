@@ -64,6 +64,7 @@ wss.on('connection', function connection(ws) {
         break
 
 
+
       case 'trocarFigurinha':
         ws.figtrocas = m.figtrocas
         info = { 'figurinhas trocar': ws.figtrocas }
@@ -79,7 +80,7 @@ wss.on('connection', function connection(ws) {
         }
 
         break
-      break
+        break
       case 'cadastro':
         ws.id = m.id
         ws.passwd = m.passwd
@@ -87,27 +88,25 @@ wss.on('connection', function connection(ws) {
         ws.cidade = m.cidade
         ws.estado = m.estado
         ws.telefone = m.telefone
-        info = {'email': ws.id, 'senha': ws.passwd, 'nome': ws.nome, 'cidade': ws.cidade, 'estado': String(ws.estado).toUpperCase(), 'telefone': ws.telefone}
+        info = { 'email': ws.id, 'senha': ws.passwd, 'nome': ws.nome, 'cidade': ws.cidade, 'estado': String(ws.estado).toUpperCase(), 'telefone': ws.telefone }
         console.log(info)
 
-        if(m.id == null || ws.passwd == null || m.nome == null || m.cidade == null || m.estado == null || m.telefone == null)
-        {
+        if (m.id == null || ws.passwd == null || m.nome == null || m.cidade == null || m.estado == null || m.telefone == null) {
           ws.send(JSON.stringify({ tipo: 'cadastro', valor: 'falha' }))
           console.log('Recebeu mensagem de cadastro: recusado')
           ws.close()
-        }else
-        {
+        } else {
           dbo.collection('Usuarios').insertOne(info, function (err, result) {
             if (err) {
               console.log('erro inserindo elemento')
-            }else {
+            } else {
               console.log('1 document inserted')
             }
             ws.send(JSON.stringify({ tipo: 'cadastro', valor: 'cadastro_okay' }))
           })
         }
-      break
-        
+        break
+
     }
 
 

@@ -91,7 +91,7 @@ wss.on('connection', function connection(ws) {
         info = { 'email': ws.id, 'senha': ws.passwd, 'nome': ws.nome, 'cidade': ws.cidade, 'estado': String(ws.estado).toUpperCase(), 'telefone': ws.telefone }
         console.log(info)
 
-        if (m.id == null || ws.passwd == null || m.nome == null || m.cidade == null || m.estado == null || m.telefone == null) {
+        if (m.id == '' || ws.passwd == '' || m.nome == '' || m.cidade == '' || m.estado == '' || m.telefone == '') {
           ws.send(JSON.stringify({ tipo: 'cadastro', valor: 'falha' }))
           console.log('Recebeu mensagem de cadastro: recusado')
           ws.close()

@@ -10,6 +10,17 @@ window.addEventListener('DOMContentLoaded', event => {
     mostra('tela-mostra-cadastro')
   })
 
+  O('tela-cadastro-cadastrar').addEventListener('click', function () {
+    let email = O('tela-cadastro-ID').value
+    let senha = O('tela-cadastro-passwd').value
+    let nome = O('tela-cadastro-nome').value
+    let cidade = O('tela-cadastro-cidade').value
+    let estado = O('tela-cadastro-estado').value
+    let telefone = O('tela-cadastro-telefone').value
+    cadastro(email, senha, nome, cidade, estado, telefone)
+    mostra('tela-login')
+  })
+
   O('botao-menu-meuAlbum').addEventListener('click', function () {
     mostra('tela-mostra-album')
   })

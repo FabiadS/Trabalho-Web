@@ -78,9 +78,8 @@ wss.on('connection', function connection(ws) {
           console.log('Figurinhas recusado')
           ws.close()
         }
+        break
 
-        break
-        break
       case 'cadastro':
         ws.id = m.id
         ws.passwd = m.passwd

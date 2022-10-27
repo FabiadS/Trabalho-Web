@@ -16,10 +16,18 @@ window.addEventListener('DOMContentLoaded', event => {
 
   O('botao-menu-figurinhasTrocar').addEventListener('click', function () {
     mostra('tela-mostra-atualizaTrocas')
+    console.log("botao menu trocar figurinhas")
+  })
+
+  O('botao-atualizaTrocas').addEventListener('click', function () {
+    let figTrocar = O('input-atualizaTrocas').value
+    trocar(figTrocar)
+    console.log("input trocar figurinhas")
   })
 
   O('botao-menu-figurinhasMinhas').addEventListener('click', function () {
     mostra('tela-atualizaAlbum')
+    console.log("botao menu figurinhas minhas")
   })
   O('botao-menu-logout').addEventListener('click', function () {
     fazLogout()

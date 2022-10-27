@@ -8,10 +8,14 @@ function enviaLogin(id, passwd) {
   websocket.send(JSON.stringify({ tipo: 'login', id: id, passwd: passwd }))
 }
 
+function enviaFigurinha(figtrocas) {
+  websocket.send(JSON.stringify({ tipo: 'trocarFigurinha', figtrocas: figtrocas }))
+}
+
 function fazLogout() {
   try {
     websocket.close()
-  } catch (e) {}
+  } catch (e) { }
 }
 
 function startConnection(id, passwd) {
@@ -30,7 +34,24 @@ function startConnection(id, passwd) {
   }
 }
 
-function onClose(evt) {}
+function trocar(figTrocar) {
+  websocket = new ReconnectingWebSocket(servidorWebserver)
+  websocket.onopen = function (evt) {
+    enviaFigurinha(figTrocar)
+  }
+  websocket.onclose = function (evt) {
+    onClose(evt)
+  }
+  websocket.onmessage = function (evt) {
+    onMessage(evt)
+  }
+  websocket.onerror = function (evt) {
+    onError(evt)
+  }
+}
+
+
+function onClose(evt) { }
 
 function onMessage(evt) {
   var msg = evt.data
@@ -48,6 +69,21 @@ function onMessage(evt) {
           mostra('tela-login')
         }, 3000)
       }
+
+      break
+
+    case 'trocarFigurinha':
+      if (msg.valor == 'sucessotrocar') {
+        mostra('tela-sucesso-atualizar-figurinhas')
+        console.log("net - case trocar")
+      } else {
+        mostra('tela-falha')
+        websocket.close()
+        setTimeout(function () {
+          mostra('tela-login')
+        }, 3000)
+      }
+      break
   }
 }
 

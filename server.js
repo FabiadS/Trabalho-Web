@@ -52,16 +52,36 @@ wss.on('connection', function connection(ws) {
           clientesOnline.push(ws)
           console.log(
             'Cliente aceito. Atualmente existem ' +
-              clientesOnline.length +
-              ' cliente(s) online'
+            clientesOnline.length +
+            ' cliente(s) online'
           )
         } else {
           ws.send(JSON.stringify({ tipo: 'login', valor: 'falha' }))
           console.log('Recebeu mensagem de login:recusado')
           ws.close()
         }
+
+        break
+
+
+      case 'trocarFigurinha':
+        ws.figtrocas = m.figtrocas
+        info = { 'figurinhas trocar': ws.figtrocas }
+        console.log(info)
+
+        if (m.figtrocas == "1,2") {
+          ws.send(JSON.stringify({ tipo: 'trocarFigurinha', valor: 'sucessotrocar' }))
+          console.log("sucesso trocando figurinhas")
+        } else {
+          ws.send(JSON.stringify({ tipo: 'trocarFigurinha', valor: 'falha2' }))
+          console.log('Figurinhas recusado')
+          ws.close()
+        }
+
         break
     }
+
+
   })
   ws.on('close', function (code) {
     for (let x = 0; x < clientesOnline.length; x++) {
@@ -73,8 +93,8 @@ wss.on('connection', function connection(ws) {
 
     console.log(
       'Cliente desconectou. Atualmente existem ' +
-        clientesOnline.length +
-        ' cliente(s) online'
+      clientesOnline.length +
+      ' cliente(s) online'
     )
   })
 })

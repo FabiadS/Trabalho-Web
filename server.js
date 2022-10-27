@@ -39,15 +39,35 @@ const wss = new WebSocket.Server({ port: 8000 }, function () {
 })
 
 var clientesOnline = []
-wss.on('connection', function connection(ws) {
-  ws.on('message', function incoming(message) {
+wss.on('connection', async function connection(ws) {
+  ws.on('message', async function incoming(message) {
     var m = JSON.parse(message)
 
     switch (m.tipo) {
       case 'login':
-        if (m.id == 'aluno' && m.passwd == 'aluno') {
-          // sucesso
-          ws.login = m.id
+        ws.id = m.id
+        ws.passwd = m.passwd
+        query = { 'email': ws.id, 'senha': ws.passwd }
+        console.log(ws.id)
+        if (m.id == '' || m.passwd == '') {
+          ws.send(JSON.stringify({ tipo: 'login', valor: 'falha' }))
+          console.log('Recebeu mensagem de login: recusado')
+          ws.close()
+        } else {
+          dbo.collection('Usuarios').find(query).limit(1).toArray(function (err, result) {
+            if (err) throw err
+            if (result[0] == undefined) {
+              ws.send(JSON.stringify({ tipo: 'login', valor: 'falha' }))
+              console.log('Recebeu mensagem de login: recusado')
+              console.log('nao existe usuario')
+              ws.close()
+            }
+            else {
+              for (var a = 0; a < result.length; a++) {
+                console.log('Achou usuario ', result[a].email + ' ' + result[a].nome)
+              }
+            }
+          })
           ws.send(JSON.stringify({ tipo: 'login', valor: 'sucesso' }))
           clientesOnline.push(ws)
           console.log(
@@ -55,23 +75,21 @@ wss.on('connection', function connection(ws) {
             clientesOnline.length +
             ' cliente(s) online'
           )
-        } else {
-          ws.send(JSON.stringify({ tipo: 'login', valor: 'falha' }))
-          console.log('Recebeu mensagem de login:recusado')
-          ws.close()
         }
 
         break
-
-
-      //db.collection.updateMany({}, {$set:{"trocar": null}}) //criou nova collection
-
 
       case 'trocarFigurinha':
         ws.figtrocas = m.figtrocas
         info = { 'figurinhas_rep': ws.figtrocas }
         console.log(info)
 
+        if (m.figtrocas == '1,2') {
+          ws.send(
+            JSON.stringify({ tipo: 'trocarFigurinha', valor: 'sucessotrocar' })
+          )
+          console.log('sucesso trocando figurinhas')
+        } else {
         if (m.figtrocas == null) {
           ws.send(JSON.stringify({ tipo: 'trocarFigurinha', valor: 'falha2' }))
           console.log('Figurinhas recusado')
@@ -96,7 +114,14 @@ wss.on('connection', function connection(ws) {
         ws.cidade = m.cidade
         ws.estado = m.estado
         ws.telefone = m.telefone
-        info = { 'email': ws.id, 'senha': ws.passwd, 'nome': ws.nome, 'cidade': ws.cidade, 'estado': String(ws.estado).toUpperCase(), 'telefone': ws.telefone }
+        info = {
+          'email': ws.id,
+          'senha': ws.passwd,
+          'nome': ws.nome,
+          'cidade': ws.cidade,
+          'estado': String(ws.estado).toUpperCase(),
+          'telefone': ws.telefone
+        }
         console.log(info)
 
         if (ws.id == '' || ws.passwd == '' || m.nome == '' || m.cidade == '' || m.estado == '' || m.telefone == '') {
@@ -119,7 +144,6 @@ wss.on('connection', function connection(ws) {
         case 'fazLogout':
         
         break
-
     }
   })
   ws.on('close', function (code) {

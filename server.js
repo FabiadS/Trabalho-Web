@@ -83,14 +83,14 @@ wss.on('connection', function connection(ws) {
       case 'cadastro':
         ws.id = m.id
         ws.passwd = m.passwd
-        ws.nome = m.passwd
+        ws.nome = m.nome
         ws.cidade = m.cidade
         ws.estado = m.estado
         ws.telefone = m.telefone
         info = { 'email': ws.id, 'senha': ws.passwd, 'nome': ws.nome, 'cidade': ws.cidade, 'estado': String(ws.estado).toUpperCase(), 'telefone': ws.telefone }
         console.log(info)
 
-        if (m.id == null || ws.passwd == null || m.nome == null || m.cidade == null || m.estado == null || m.telefone == null) {
+        if (m.id == '' || ws.passwd == '' || m.nome == '' || m.cidade == '' || m.estado == '' || m.telefone == '') {
           ws.send(JSON.stringify({ tipo: 'cadastro', valor: 'falha' }))
           console.log('Recebeu mensagem de cadastro: recusado')
           ws.close()
@@ -107,8 +107,6 @@ wss.on('connection', function connection(ws) {
         break
 
     }
-
-
   })
   ws.on('close', function (code) {
     for (let x = 0; x < clientesOnline.length; x++) {

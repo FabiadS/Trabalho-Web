@@ -10,7 +10,6 @@ window.addEventListener('DOMContentLoaded', event => {
     mostra('tela-mostra-cadastro')
   })
 
-
   O('tela-cadastro-cadastrar').addEventListener('click', function () {
     let email = O('tela-cadastro-ID').value
     let senha = O('tela-cadastro-passwd').value
@@ -22,7 +21,6 @@ window.addEventListener('DOMContentLoaded', event => {
   })
 
   O('tela-cadastro-voltar').addEventListener('click', function () {
-
     mostra('tela-login')
   })
 
@@ -32,18 +30,18 @@ window.addEventListener('DOMContentLoaded', event => {
 
   O('botao-menu-figurinhasTrocar').addEventListener('click', function () {
     mostra('tela-mostra-atualizaTrocas')
-    console.log("botao menu trocar figurinhas")
+    console.log('botao menu trocar figurinhas')
   })
 
   O('botao-atualizaTrocas').addEventListener('click', function () {
     let figTrocar = O('input-atualizaTrocas').value
     trocar(figTrocar)
-    console.log("input trocar figurinhas")
+    console.log('input trocar figurinhas')
   })
 
   O('botao-menu-figurinhasMinhas').addEventListener('click', function () {
     mostra('tela-atualizaAlbum')
-    console.log("botao menu figurinhas minhas")
+    console.log('botao menu figurinhas minhas')
   })
   O('botao-menu-logout').addEventListener('click', function () {
     fazLogout()

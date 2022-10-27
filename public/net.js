@@ -20,6 +20,7 @@ function fazLogout() {
     websocket.close()
   } catch (e) { }
 }
+//teste
 
 function startConnection(id, passwd) {
   websocket = new ReconnectingWebSocket(servidorWebserver)

@@ -9,11 +9,13 @@
 	<meta name="description" content="Site teste">
 	<title> Aplicacao Cliente </title>
 
-	<script type="text/javascript" src="reconnecting-websocket.min.js"></script>
-	<script type="text/javascript" src="ui.js"></script>
-	<script type="text/javascript" src="net.js"></script>
-	<script type="text/javascript" src="cliente.js"></script>
+	<script type="text/javascript" src="/public/reconnecting-websocket.min.js"></script>
+	<script type="text/javascript" src="/public/ui.js"></script>
+	<script type="text/javascript" src="/public/net.js"></script>
+	<script type="text/javascript" src="/public/cliente.js"></script>
 	<link rel="stylesheet" href="index.css">
+
+</head>
 
 
 <Body>
@@ -45,10 +47,18 @@
 		<button id="tela-cadastro-cadastrar">Cadastrar</button>
 	</div>
 
+
 	<div class="tela" id="tela-mostra-menu">
 		Selecione as opcoes
 
 		<button id="botao-menu-meuAlbum"> Meu Album</button>
+		<button id="botao-menu-figurinhasTrocar"> Atualiza figurinhas para trocar </button>
+		<button id="botao-menu-figurinhasMinhas"> Atualiza figurinhas minhas </button>
+		<button id="botao-menu-logout"> Faz logout </button>
+	</div>
+	<div class="tela" id="tela-mostra-album">
+		Aqui mostra o album
+
 		<button id="botao-menu-figurinhasTrocar"> Atualizar figurinhas para trocar </button>
 		<button id="botao-menu-figurinhasMinhas"> Atualizar figurinhas que quero </button>
 		<button id="botao-menu-logout"> Faz logout </button>
@@ -60,6 +70,12 @@
 
 	<div class="tela" id="tela-mostra-atualizaTrocas">
 		Nesta tela voce atualiza a sua lista de figuras para trocar
+		<button class="retorna-menu">Retorna Menu</button>
+	</div>
+
+	<div class="tela" id="tela-atualizaAlbum">
+		Nesta tela voce atualiza o seu album
+
 		Figurinhas para trocar: <input type="text" id="input-atualizaTrocas" />
 		<button id="botao-atualizaTrocas">Atualizar</button>
 		<button class="retorna-menu">Retorna Menu</button>

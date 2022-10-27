@@ -78,7 +78,6 @@ function onMessage(evt) {
           mostra('tela-login')
         }, 3000)
       }
-
       break
 
     case 'trocarFigurinha':
@@ -93,11 +92,11 @@ function onMessage(evt) {
         }, 3000)
       }
       break
-    break
     case 'cadastro':
       if(msg.valor == 'cadastro_okay')
       {
         mostra('tela-login')
+        fazLogout()
       }else{
           mostra('tela-falha')
           websocket.close()

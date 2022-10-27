@@ -63,8 +63,6 @@ wss.on('connection', function connection(ws) {
 
         break
 
-
-
       case 'trocarFigurinha':
         ws.figtrocas = m.figtrocas
         info = { 'figurinhas trocar': ws.figtrocas }
@@ -79,7 +77,6 @@ wss.on('connection', function connection(ws) {
           ws.close()
         }
 
-        break
         break
       case 'cadastro':
         ws.id = m.id
@@ -106,6 +103,10 @@ wss.on('connection', function connection(ws) {
             
           })
         }
+        break
+
+        case 'fazLogout':
+        
         break
 
     }

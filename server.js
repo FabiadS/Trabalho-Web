@@ -64,19 +64,28 @@ wss.on('connection', function connection(ws) {
         break
 
 
+      //db.collection.updateMany({}, {$set:{"trocar": null}}) //criou nova collection
 
       case 'trocarFigurinha':
         ws.figtrocas = m.figtrocas
-        info = { 'figurinhas trocar': ws.figtrocas }
+        info = { 'figurinhas_rep': ws.figtrocas }
         console.log(info)
 
-        if (m.figtrocas == "1,2") {
-          ws.send(JSON.stringify({ tipo: 'trocarFigurinha', valor: 'sucessotrocar' }))
-          console.log("sucesso trocando figurinhas")
-        } else {
+        if (m.figtrocas == null) {
           ws.send(JSON.stringify({ tipo: 'trocarFigurinha', valor: 'falha2' }))
           console.log('Figurinhas recusado')
           ws.close()
+        } else {
+          dbo.collection('Usuarios').insertOne(info, function (err, result) //INSERIR COLUNA E LIGAR AO USUARIO
+          {
+            if (err) {
+              console.log('erro inserindo elemento')
+            } else {
+              console.log('1 document inserted')
+            }
+            ws.send(JSON.stringify({ tipo: 'trocarFigurinha', valor: 'sucessotrocar' }))
+          })
+
         }
         break
 

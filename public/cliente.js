@@ -19,6 +19,7 @@ window.addEventListener('DOMContentLoaded', event => {
     let estado = O('tela-cadastro-estado').value
     let telefone = O('tela-cadastro-telefone').value
     cadastro(email, senha, nome, cidade, estado, telefone)
+  })
 
   O('tela-cadastro-voltar').addEventListener('click', function () {
 

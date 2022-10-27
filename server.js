@@ -97,7 +97,14 @@ wss.on('connection', function connection(ws) {
           ws.close()
         }else
         {
-          ws.send(JSON.stringify({ tipo: 'cadastro', valor: 'cadastro_okay' }))
+          dbo.collection('Usuarios').insertOne(info, function (err, result) {
+            if (err) {
+              console.log('erro inserindo elemento')
+            }else {
+              console.log('1 document inserted')
+            }
+            ws.send(JSON.stringify({ tipo: 'cadastro', valor: 'cadastro_okay' }))
+          })
         }
       break
         

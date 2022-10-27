@@ -90,21 +90,22 @@ wss.on('connection', async function connection(ws) {
           )
           console.log('sucesso trocando figurinhas')
         } else {
-        if (m.figtrocas == null) {
-          ws.send(JSON.stringify({ tipo: 'trocarFigurinha', valor: 'falha2' }))
-          console.log('Figurinhas recusado')
-          ws.close()
-        } else {
-          dbo.collection('Usuarios').insertOne(info, function (err, result) //INSERIR COLUNA E LIGAR AO USUARIO
-          {
-            if (err) {
-              console.log('erro inserindo elemento')
-            } else {
-              console.log('1 document inserted')
-            }
-            ws.send(JSON.stringify({ tipo: 'trocarFigurinha', valor: 'sucessotrocar' }))
-          })
+          if (m.figtrocas == null) {
+            ws.send(JSON.stringify({ tipo: 'trocarFigurinha', valor: 'falha2' }))
+            console.log('Figurinhas recusado')
+            ws.close()
+          } else {
+            dbo.collection('Usuarios').insertOne(info, function (err, result) //INSERIR COLUNA E LIGAR AO USUARIO
+            {
+              if (err) {
+                console.log('erro inserindo elemento')
+              } else {
+                console.log('1 document inserted')
+              }
+              ws.send(JSON.stringify({ tipo: 'trocarFigurinha', valor: 'sucessotrocar' }))
+            })
 
+          }
         }
         break
       case 'cadastro':
@@ -122,28 +123,24 @@ wss.on('connection', async function connection(ws) {
           'estado': String(ws.estado).toUpperCase(),
           'telefone': ws.telefone
         }
-        console.log(info)
 
-        if (ws.id == '' || ws.passwd == '' || m.nome == '' || m.cidade == '' || m.estado == '' || m.telefone == '') {
-          ws.send(JSON.stringify({ tipo: 'cadastro', valor: 'falha' }))
-          console.log('Recebeu mensagem de cadastro: recusado')
-          ws.close()
+    }
+    console.log(info)
+
+    if (ws.id == '' || ws.passwd == '' || m.nome == '' || m.cidade == '' || m.estado == '' || m.telefone == '') {
+      ws.send(JSON.stringify({ tipo: 'cadastro', valor: 'falha' }))
+      console.log('Recebeu mensagem de cadastro: recusado')
+      ws.close()
+    } else {
+      dbo.collection('Usuarios').insertOne(info, function (err, result) {
+        if (err) {
+          console.log('erro inserindo elemento')
         } else {
-          dbo.collection('Usuarios').insertOne(info, function (err, result) {
-            if (err) {
-              console.log('erro inserindo elemento')
-            } else {
-              console.log('1 document inserted')
-            }
-            ws.send(JSON.stringify({ tipo: 'cadastro', valor: 'cadastro_okay' }))
-            
-          })
+          console.log('1 document inserted')
         }
-        break
+        ws.send(JSON.stringify({ tipo: 'cadastro', valor: 'cadastro_okay' }))
 
-        case 'fazLogout':
-        
-        break
+      })
     }
   })
   ws.on('close', function (code) {

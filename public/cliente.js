@@ -10,6 +10,10 @@ window.addEventListener('DOMContentLoaded', event => {
     mostra('tela-mostra-cadastro')
   })
 
+  O('tela-cadastro-voltar').addEventListener('click', function () {
+    mostra('tela-login')
+  })
+
   O('botao-menu-meuAlbum').addEventListener('click', function () {
     mostra('tela-mostra-album')
   })

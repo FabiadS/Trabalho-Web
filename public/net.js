@@ -79,8 +79,6 @@ function onMessage(evt) {
 
     case 'trocarFigurinha':
       if (msg.valor == 'sucessotrocar') {
-        mostra('tela-sucesso-atualizar-figurinhas')
-        console.log("net - case trocar")
       } else {
         mostra('tela-falha')
         websocket.close()

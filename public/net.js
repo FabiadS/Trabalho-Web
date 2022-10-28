@@ -57,7 +57,7 @@ function cadastro(email, senha, nome, cidade, estado, telefone) {
   }
 }
 
-function onClose(evt) {}
+function onClose(evt) { }
 
 function onMessage(evt) {
   var msg = evt.data
@@ -79,6 +79,10 @@ function onMessage(evt) {
 
     case 'trocarFigurinha':
       if (msg.valor == 'sucessotrocar') {
+<<<<<<< HEAD
+=======
+        mostra('tela-mostra-menu')
+>>>>>>> origin/main
       } else {
         mostra('tela-falha')
         websocket.close()
@@ -88,18 +92,17 @@ function onMessage(evt) {
       }
       break
     case 'cadastro':
-      if(msg.valor == 'cadastro_okay')
-      {
+      if (msg.valor == 'cadastro_okay') {
         mostra('tela-login')
         fazLogout()
-      }else{
-          mostra('tela-falha')
-          websocket.close()
-          setTimeout(function () {
-            mostra('tela-login')
-          }, 3000)
+      } else {
+        mostra('tela-falha')
+        websocket.close()
+        setTimeout(function () {
+          mostra('tela-login')
+        }, 3000)
       }
-    break
+      break
   }
 }
 

@@ -81,6 +81,7 @@ wss.on('connection', async function connection(ws) {
 
       case 'trocarFigurinha':
         ws.figtrocas = m.figtrocas
+        console.log(clientesOnline[10])
         info = { 'figurinhas_rep': ws.figtrocas }
         console.log(info)
 

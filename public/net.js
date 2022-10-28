@@ -39,10 +39,7 @@ function startConnection(id, passwd) {
 }
 
 function trocar(figTrocar) {
-  websocket = new ReconnectingWebSocket(servidorWebserver)
-  websocket.onopen = function (evt) {
-    enviaFigurinha(figTrocar)
-  }
+  enviaFigurinha(figTrocar)
 }
 function cadastro(email, senha, nome, cidade, estado, telefone) {
   websocket = new ReconnectingWebSocket(servidorWebserver)

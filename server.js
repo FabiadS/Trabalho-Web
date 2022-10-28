@@ -45,7 +45,7 @@ wss.on('connection', function connection(ws) {
 
     switch (m.tipo) {
       case 'login':
-        if (m.id == 'aluno' && m.passwd == 'aluno') {
+        if (m.id == 'aluno@gmail.com' && m.passwd == 'aluno') {
           // sucesso
           ws.login = m.id
           ws.send(JSON.stringify({ tipo: 'login', valor: 'sucesso' }))
@@ -68,27 +68,34 @@ wss.on('connection', function connection(ws) {
 
 
       case 'trocarFigurinha':
+        const options = { upsert: true };
+        //const filter = { title: "Random Harvest" };
+        console.log(clientesOnline[0].ws.id)
         ws.figtrocas = m.figtrocas
         info = { 'figurinhas_rep': ws.figtrocas }
         console.log(info)
-
-        if (m.figtrocas == null) {
+        
+        const updateDoc = {set: {info}};
+        if (m.figtrocas == '') {
           ws.send(JSON.stringify({ tipo: 'trocarFigurinha', valor: 'falha2' }))
           console.log('Figurinhas recusado')
           ws.close()
         } else {
-          dbo.collection('Usuarios').insertOne(info, function (err, result) //INSERIR COLUNA E LIGAR AO USUARIO
+          dbo.collection('Usuarios').updateOne({"email": "aluno@gmail.com"}, info, function (err, result) //INSERIR COLUNA E LIGAR AO USUARIO
           {
+            console.log("Entra em dbo")
             if (err) {
               console.log('erro inserindo elemento')
             } else {
               console.log('1 document inserted')
+              $set: info
             }
             ws.send(JSON.stringify({ tipo: 'trocarFigurinha', valor: 'sucessotrocar' }))
           })
 
         }
         break
+
       case 'cadastro':
         ws.id = m.id
         ws.passwd = m.passwd
@@ -99,7 +106,7 @@ wss.on('connection', function connection(ws) {
         info = { 'email': ws.id, 'senha': ws.passwd, 'nome': ws.nome, 'cidade': ws.cidade, 'estado': String(ws.estado).toUpperCase(), 'telefone': ws.telefone }
         console.log(info)
 
-        if (ws.id == '' || ws.passwd == '' || m.nome == '' || m.cidade == '' || m.estado == '' || m.telefone == '') {
+        if (m.id == '' || ws.passwd == '' || m.nome == '' || m.cidade == '' || m.estado == '' || m.telefone == '') {
           ws.send(JSON.stringify({ tipo: 'cadastro', valor: 'falha' }))
           console.log('Recebeu mensagem de cadastro: recusado')
           ws.close()
@@ -111,13 +118,8 @@ wss.on('connection', function connection(ws) {
               console.log('1 document inserted')
             }
             ws.send(JSON.stringify({ tipo: 'cadastro', valor: 'cadastro_okay' }))
-            
           })
         }
-        break
-
-        case 'fazLogout':
-        
         break
 
     }

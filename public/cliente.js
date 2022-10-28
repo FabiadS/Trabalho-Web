@@ -28,6 +28,10 @@ window.addEventListener('DOMContentLoaded', event => {
     mostra('tela-mostra-album')
   })
 
+  O('botao-menu-match').addEventListener('click', function () {
+    mostra('tela-mostra-match')
+  })
+
   O('botao-menu-figurinhasTrocar').addEventListener('click', function () {
     mostra('tela-mostra-atualizaTrocas')
     console.log('botao menu trocar figurinhas')

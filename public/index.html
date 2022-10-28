@@ -1,83 +1,93 @@
 <!DOCTYPE html>
 <html dir="ltr" lang=pt-BR>
-    <head>
-        <meta charset=utf-8>
-        <meta content="width=300, initial-scale=1" name="viewport">
-        <meta name="keywords" content="teste">
-        <meta name="description" content="Site teste">
-        <title> Aplicacao Cliente </title>
-        <script type="text/javascript" src="reconnecting-websocket.min.js"></script>
-        <script type="text/javascript" src="ui.js"></script>
-        <script type="text/javascript" src="net.js"></script>
-        <script type="text/javascript" src="cliente.js"></script>
-          <link rel="stylesheet" href="index.css">
-	</head>
 
-	<Body>
-	        <div class="tela tela-login" id="tela-login" >
-    					<h1>ALBUM DE FIGURINHAS</h1> <br>
+<head>
+	<meta charset=utf-8>
+	<meta content="width=300, initial-scale=1" name="viewport">
+	<meta name="keywords" content="teste">
+	<meta name="description" content="Site teste">
+	<title> Aplicacao Cliente </title>
+	<script type="text/javascript" src="reconnecting-websocket.min.js"></script>
+	<script type="text/javascript" src="ui.js"></script>
+	<script type="text/javascript" src="net.js"></script>
+	<script type="text/javascript" src="cliente.js"></script>
+	<link rel="stylesheet" href="index.css">
+</head>
 
-							<p>Somos uma comunidade online para você encontrar seu match de figurinhas!</p><br>
+<Body>
+	<div class="tela tela-login" id="tela-login">
+		<h1>ALBUM DE FIGURINHAS</h1> <br>
 
-        	    E-mail: <input  type="text" id="tela-login-ID"/>
-        	    Senha: <input  type="text"  id="tela-login-passwd"/>
-        	    <button id="tela-login-entra">Entrar</button>
-							<button id="tela-login-cadastro">Cadastrar</button>
-        	    
-        	</div>
-        	<div class="tela" id="tela-falha">
-        	    Ocorreu uma falha de autenticação. Você sera redirecionado para a tela inicial em 3 segundos
-                       
-        	</div>
+		<p>Somos uma comunidade online para você encontrar seu match de figurinhas!</p><br>
 
-					<div class="tela" id="tela-mostra-cadastro">
+		E-mail: <input type="text" id="tela-login-ID" />
+		Senha: <input type="text" id="tela-login-passwd" />
+		<button id="tela-login-entra">Entrar</button>
+		<button id="tela-login-cadastro">Cadastrar</button>
 
-						<h1>Cadastro de usuário</h1>
+	</div>
+	<div class="tela" id="tela-falha">
+		Ocorreu uma falha de autenticação. Você sera redirecionado para a tela inicial em 3 segundos
 
-							E-mail: <input  type="text" id="tela-cadastro-ID"/>
-        	    Senha: <input  type="text"  id="tela-cadastro-passwd"/>
-							Nome: <input type="text" id="tela-cadastro-nome">
-							Cidade: <input type="text" id="tela-cadastro-cidade">
-							Estado: <input type="text" id="tela-cadastro-estado" maxlength="2">
-							Telefone: <input type="text" id="tela-cadastro-telefone">
-        	    <button id="tela-cadastro-voltar">Voltar</button>
-							<button id="tela-cadastro-cadastrar">Cadastrar</button>
-					</div>
-        	
-        	<div class="tela" id="tela-mostra-menu">
-        		Selecione as opcoes
+	</div>
 
-        		<button id="botao-menu-meuAlbum"> Meu Album</button>
-  		      <button id="botao-menu-figurinhasTrocar"> Atualiza figurinhas para trocar </button>
-       		  <button id="botao-menu-figurinhasMinhas"> Atualiza figurinhas minhas </button>
-       		  <button id="botao-menu-logout"> Faz logout </button>
-        	</div>
-        	<div class="tela" id="tela-mostra-album">
-        		Aqui mostra o album
-        		
-  
-	       		<button class="retorna-menu">Retorna Menu</button>
-        	</div>
-        	
-        	<div class="tela" id="tela-mostra-atualizaTrocas">
-        		Nesta tela voce atualiza a sua lista de figuras para trocar
-						Figurinhas para trocar: <input type="text" id="input-atualizaTrocas" />
-						<button id="botao-atualizaTrocas">Atualizar</button>
-        		<button class="retorna-menu">Retorna Menu</button>        		
-        	</div>
-        	
+	<div class="tela" id="tela-mostra-cadastro">
 
-					<div class="tela" id="tela-atualizaAlbum">
-						Nesta tela voce atualiza as figurinhas que faltam
-						Figurinhas que preciso: <input type="text" id="input-atualizaFaltam" />
-						<button id="botao-atualizaFaltam">Atualizar</button>
-						<button class="retorna-menu">Retorna Menu</button>
-					</div>
+		<h1>Cadastro de usuário</h1>
+
+		E-mail: <input type="text" id="tela-cadastro-ID" />
+		Senha: <input type="text" id="tela-cadastro-passwd" />
+		Nome: <input type="text" id="tela-cadastro-nome">
+		Cidade: <input type="text" id="tela-cadastro-cidade">
+		Estado: <input type="text" id="tela-cadastro-estado" maxlength="2">
+		Telefone: <input type="text" id="tela-cadastro-telefone">
+		<button id="tela-cadastro-voltar">Voltar</button>
+		<button id="tela-cadastro-cadastrar">Cadastrar</button>
+	</div>
+
+	<div class="tela" id="tela-mostra-menu">
+		Selecione as opcoes
+
+		<button id="botao-menu-meuAlbum"> Meu Album</button>
+		<button id="botao-menu-figurinhasTrocar"> Atualiza figurinhas para trocar </button>
+		<button id="botao-menu-figurinhasMinhas"> Atualiza figurinhas minhas </button>
+		<button id="botao-menu-match">Match</button>
+		<button id="botao-menu-logout"> Faz logout </button>
+	</div>
+	<div class="tela" id="tela-mostra-album">
+		Aqui mostra o album
 
 
+		<button class="retorna-menu">Retorna Menu</button>
+	</div>
 
-      	
-	</Body>
+	<div class="tela" id="tela-mostra-atualizaTrocas">
+		Nesta tela voce atualiza a sua lista de figuras para trocar
+		Figurinhas para trocar: <input type="text" id="input-atualizaTrocas" />
+		<button id="botao-atualizaTrocas">Atualizar</button>
+		<button class="retorna-menu">Retorna Menu</button>
+	</div>
+
+
+	<div class="tela" id="tela-atualizaAlbum">
+		Nesta tela voce atualiza as figurinhas que faltam
+		Figurinhas que preciso: <input type="text" id="input-atualizaFaltam" />
+		<button id="botao-atualizaFaltam">Atualizar</button>
+		<button class="retorna-menu">Retorna Menu</button>
+	</div>
+
+	<div class="tela" id="tela-mostra-match">
+		<h1>Match</h1>
+		<p id="nome">Nome:</p>
+		<p id="cidade">Cidade:</p>
+		<p id="figurinhas-troca">Figurinhas repetidas para trocar:</p>
+		<p id="figurinhas-pessoa-quer">Figurinhas que a pessoa quer:</p>
+	</div>
+
+
+
+
+</Body>
 
 
 </html>

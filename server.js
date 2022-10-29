@@ -95,6 +95,7 @@ wss.on("connection", async function connection(ws) {
 
         ws.figtrocas = m.figtrocas
 
+        //teste
         if(m.figtrocas == null)
         {
           ws.send(JSON.stringify({tipo: "trocarFigurinha", valor: "falha2"}));

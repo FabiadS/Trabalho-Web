@@ -43,6 +43,7 @@ var clientesOnline = [];
 wss.on("connection", async function connection(ws) {
   ws.on("message", async function incoming(message) {
     var m = JSON.parse(message);
+
     switch (m.tipo) {
       case "login": {
         ws.id = m.id;
@@ -85,40 +86,72 @@ wss.on("connection", async function connection(ws) {
         break;
       }
 
+
+      case "faltamFigurinha": {
+        if (!ws.id) {
+          ws.send(JSON.stringify({ tipo: "faltamFigurinha", valor: "falha3" }))
+          ws.close()
+          break
+        }
+
+        ws.figfaltam = m.figfaltam;
+        var newValues = { $set: { figurinha_preciso: ws.figfaltam } }
+        var query = { email: ws.id }
+
+        //teste
+        if (m.figfaltam == null) {
+          ws.send(JSON.stringify({ tipo: "faltamFigurinha", valor: "falha2" }));
+          console.log("Figurinhas recusado");
+          ws.close();
+        } else {
+          ws.send(
+            JSON.stringify({ tipo: "faltamFigurinha", valor: "sucessofaltam" })
+          );
+
+          dbo.collection("Usuarios").updateOne(query, newValues, function (err, res) {
+            console.log("figurinhas que preciso inseridas");
+          })
+
+          console.log("Imprimindo id do faltam figurinhas" + ws.id)
+
+        }
+        break
+      }
+
       case "trocarFigurinha": {
-        if(!ws.id)
-        {
-          ws.send(JSON.stringify({ tipo: "trocarFigurinha", valor: "falha3"}))
+        if (!ws.id) {
+          ws.send(JSON.stringify({ tipo: "trocarFigurinha", valor: "falha3" }))
           ws.close()
           break
         }
 
         ws.figtrocas = m.figtrocas;
-        var newValues = {$set: {figurinha_rep:ws.figtrocas}}
-        var query = {email: ws.id}
+        var newValues = { $set: { figurinha_rep: ws.figtrocas } }
+        var query = { email: ws.id }
 
         //teste
-        if(m.figtrocas == null)
-        {
-          ws.send(JSON.stringify({tipo: "trocarFigurinha", valor: "falha2"}));
+        if (m.figtrocas == null) {
+          ws.send(JSON.stringify({ tipo: "trocarFigurinha", valor: "falha2" }));
           console.log("Figurinhas recusado");
           ws.close();
-        }else{
+        } else {
           ws.send(
             JSON.stringify({ tipo: "trocarFigurinha", valor: "sucessotrocar" })
           );
 
-          dbo.collection("Usuarios").updateOne(query, newValues, function(err, res){
+          dbo.collection("Usuarios").updateOne(query, newValues, function (err, res) {
             console.log("figurinhas que quero trocar inseridas");
           })
-          
+
           console.log("Imprimindo id do troca figurinhas" + ws.id)
 
         }
         break
       }
 
-      
+
+
+
       case "cadastro":
         ws.id = m.id;
         ws.passwd = m.passwd;
@@ -182,9 +215,3 @@ wss.on("connection", async function connection(ws) {
     );
   });
 });
-
-function update(query, newValues)
-{
-
-
-}

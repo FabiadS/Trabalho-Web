@@ -93,7 +93,9 @@ wss.on("connection", async function connection(ws) {
           break
         }
 
-        ws.figtrocas = m.figtrocas
+        ws.figtrocas = m.figtrocas;
+        var newValues = {$set: {figurinha_rep:ws.figtrocas}}
+        var query = {email: ws.id}
 
         //teste
         if(m.figtrocas == null)
@@ -105,36 +107,16 @@ wss.on("connection", async function connection(ws) {
           ws.send(
             JSON.stringify({ tipo: "trocarFigurinha", valor: "sucessotrocar" })
           );
-          
 
-          var newValues = {$set: {email: ws.id, figurinha_rep:ws.figtrocas}}
-          var query = {email: ws.id}
-
-          dbo.collection("Usuarios").find(query).limit(1).toArray(function (err, result) {
-            console.log("olá")
-            if(err) throw err;
-            if(result[0] == undefined) {
-              ws.send(JSON.stringify({ tipo: "trocarFigurinha", valor: "falha2" }));
-              console.log("Usuário não encontrado");
-            }else{
-              for (var a = 0; a < result.length; a++) {
-                fig_atual = result[a].figurinha_rep
-                console.log(
-                "Achou usuario " +
-                result[a].figurinha_rep
-              );
-              var myquery = {figurinha_rep: fig_atual}
-            }
-            }
-          })
-          console.log("Imprimindo id do troca figurinhas" + ws.id)
-          dbo.collection("Usuarios").updateOne(myquery, newValues, function(err, res){
-            if(err) throw err;
+          dbo.collection("Usuarios").updateOne(query, newValues, function(err, res){
+            console.log(err)
             console.log("1 document updated");
             console.log("sucesso trocando figurinhas");
           })
-        }
+          
+          console.log("Imprimindo id do troca figurinhas" + ws.id)
 
+        }
         break
       }
 
@@ -202,3 +184,9 @@ wss.on("connection", async function connection(ws) {
     );
   });
 });
+
+function update(query, newValues)
+{
+
+
+}

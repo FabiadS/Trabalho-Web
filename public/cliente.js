@@ -48,6 +48,17 @@ window.addEventListener('DOMContentLoaded', event => {
     mostra('tela-atualizaAlbum')
     console.log('botao menu figurinhas minhas')
   })
+
+
+  O('botao-atualizaFaltam').addEventListener('click', function () {
+    let figQuero = O('input-atualizaFaltam').value
+    let vector = figQuero.split(',')
+    faltam(vector)
+    console.log('input faltam figurinhas')
+  })
+
+
+
   O('botao-menu-logout').addEventListener('click', function () {
     fazLogout()
     mostra('tela-login')

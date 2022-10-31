@@ -11,6 +11,9 @@ function enviaLogin(id, passwd) {
 function enviaFigurinha(figtrocas) {
   websocket.send(JSON.stringify({ tipo: 'trocarFigurinha', figtrocas: figtrocas }))
 }
+function enviaFigurinhaFaltam(figfaltam) {
+  websocket.send(JSON.stringify({ tipo: 'faltamFigurinha', figfaltam: figfaltam }))
+}
 function enviaCadastro(id, passwd, nome, cidade, estado, telefone) {
   websocket.send(JSON.stringify({ tipo: 'cadastro', id: id, passwd: passwd, nome: nome, cidade: cidade, estado: estado, telefone: telefone }))
 }
@@ -41,6 +44,11 @@ function startConnection(id, passwd) {
 function trocar(figTrocar) {
   enviaFigurinha(figTrocar)
 }
+
+function faltam(figfaltam) {
+  enviaFigurinhaFaltam(figfaltam)
+}
+
 function cadastro(email, senha, nome, cidade, estado, telefone) {
   websocket = new ReconnectingWebSocket(servidorWebserver)
   websocket.onopen = function (evt) {
@@ -56,6 +64,8 @@ function cadastro(email, senha, nome, cidade, estado, telefone) {
     onError(evt)
   }
 }
+
+
 
 function onClose(evt) { }
 
@@ -87,6 +97,18 @@ function onMessage(evt) {
         }, 3000)
       }
       break
+
+      case 'faltamFigurinha':
+      if (msg.valor == 'sucessofaltam') {
+      } else {
+        mostra('tela-falha')
+        websocket.close()
+        setTimeout(function () {
+          mostra('tela-login')
+        }, 3000)
+      }
+      break
+
     case 'cadastro':
       if (msg.valor == 'cadastro_okay') {
         mostra('tela-login')

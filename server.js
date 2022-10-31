@@ -84,6 +84,7 @@ wss.on("connection", async function connection(ws) {
         }
         break;
       }
+
       case "trocarFigurinha": {
         if(!ws.id)
         {
@@ -91,46 +92,35 @@ wss.on("connection", async function connection(ws) {
           ws.close()
           break
         }
+
         ws.figtrocas = m.figtrocas;
-        info = { figurinhas_rep: ws.figtrocas };
-        console.log(info);
-        if (m.figtrocas == ws.figtrocas) {
+        var newValues = {$set: {figurinha_rep:ws.figtrocas}}
+        var query = {email: ws.id}
+
+        //teste
+        if(m.figtrocas == null)
+        {
+          ws.send(JSON.stringify({tipo: "trocarFigurinha", valor: "falha2"}));
+          console.log("Figurinhas recusado");
+          ws.close();
+        }else{
           ws.send(
             JSON.stringify({ tipo: "trocarFigurinha", valor: "sucessotrocar" })
           );
-          console.log("sucesso trocando figurinhas");
-        } else {
-          if (m.figtrocas == null) {
-            ws.send(
-              JSON.stringify({ tipo: "trocarFigurinha", valor: "falha2" })
-            );
-            console.log("Figurinhas recusado");
-            ws.close();
-          } else {
-            console.log(ws.id)
-            dbo.collection("Usuarios").insertOne(
-              info,
-              function (
-                err,
-                result //INSERIR COLUNA E LIGAR AO USUARIO
-              ) {
-                if (err) {
-                  console.log("erro inserindo elemento");
-                } else {
-                  console.log("1 document inserted");
-                }
-                ws.send(
-                  JSON.stringify({
-                    tipo: "trocarFigurinha",
-                    valor: "sucessotrocar",
-                  })
-                );
-              }
-            );
-          }
+
+          dbo.collection("Usuarios").updateOne(query, newValues, function(err, res){
+            console.log(err)
+            console.log("1 document updated");
+            console.log("sucesso trocando figurinhas");
+          })
+          
+          console.log("Imprimindo id do troca figurinhas" + ws.id)
+
         }
-        break;
+        break
       }
+
+      
       case "cadastro":
         ws.id = m.id;
         ws.passwd = m.passwd;
@@ -138,6 +128,8 @@ wss.on("connection", async function connection(ws) {
         ws.cidade = m.cidade;
         ws.estado = m.estado;
         ws.telefone = m.telefone;
+        let figurinha_rep = null
+        let figurinha_preciso = null
         info = {
           email: ws.id,
           senha: ws.passwd,
@@ -145,6 +137,8 @@ wss.on("connection", async function connection(ws) {
           cidade: ws.cidade,
           estado: String(ws.estado).toUpperCase(),
           telefone: ws.telefone,
+          figurinha_rep,
+          figurinha_preciso
         };
 
         console.log(info);
@@ -190,3 +184,9 @@ wss.on("connection", async function connection(ws) {
     );
   });
 });
+
+function update(query, newValues)
+{
+
+
+}

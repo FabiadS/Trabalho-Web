@@ -79,7 +79,6 @@ function onMessage(evt) {
 
     case 'trocarFigurinha':
       if (msg.valor == 'sucessotrocar') {
-        mostra('tela-mostra-menu')
       } else {
         mostra('tela-falha')
         websocket.close()

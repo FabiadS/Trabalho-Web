@@ -39,7 +39,8 @@ window.addEventListener('DOMContentLoaded', event => {
 
   O('botao-atualizaTrocas').addEventListener('click', function () {
     let figTrocar = O('input-atualizaTrocas').value
-    trocar(figTrocar)
+    let vector = figTrocar.split(',')
+    trocar(vector)
     console.log('input trocar figurinhas')
   })
 

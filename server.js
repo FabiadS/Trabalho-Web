@@ -150,12 +150,14 @@ wss.on("connection", async function connection(ws) {
       }
 
       case 'match': {
-        ws.id = m.id;
-        ws.cidade = m.cidade;
+        console.log("print ws.id " + ws.id)
 
+        ws.cidade = m.cidade
         query = { cidade: ws.cidade }
+        console.log("query é " + query)
 
         if (!ws.id) {
+          console.log("entrou aqui")
           ws.send(JSON.stringify({ tipo: "match", valor: "falha" }))
           ws.close()
           break
@@ -178,9 +180,10 @@ wss.on("connection", async function connection(ws) {
                     result[a].email + " " + result[a].cidade
                   );
                 }
+                ws.send(JSON.stringify({ tipo: "match", valor: "sucesso_match" }));
               }
             });
-          ws.send(JSON.stringify({ tipo: "match", valor: "sucesso_match" }));
+
         }
         break
 

@@ -180,6 +180,7 @@ wss.on("connection", async function connection(ws) {
                 }
               }
             });
+          ws.send(JSON.stringify({ tipo: "match", valor: "sucesso_match" }));
         }
         break
 

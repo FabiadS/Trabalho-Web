@@ -89,6 +89,7 @@ function onMessage(evt) {
 
     case 'trocarFigurinha':
       if (msg.valor == 'sucessotrocar') {
+        mostra('tela-mostra-menu')
       } else {
         mostra('tela-falha')
         websocket.close()
@@ -98,8 +99,9 @@ function onMessage(evt) {
       }
       break
 
-      case 'faltamFigurinha':
+    case 'faltamFigurinha':
       if (msg.valor == 'sucessofaltam') {
+        mostra('tela-mostra-menu')
       } else {
         mostra('tela-falha')
         websocket.close()

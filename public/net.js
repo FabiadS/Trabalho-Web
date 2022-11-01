@@ -11,6 +11,10 @@ function enviaLogin(id, passwd) {
 function enviaFigurinha(figtrocas) {
   websocket.send(JSON.stringify({ tipo: 'trocarFigurinha', figtrocas: figtrocas }))
 }
+
+function enviaDados(cidade) {
+  websocket.send(JSON.stringify({ tipo: 'match', cidade: cidade }))
+}
 function enviaFigurinhaFaltam(figfaltam) {
   websocket.send(JSON.stringify({ tipo: 'faltamFigurinha', figfaltam: figfaltam }))
 }
@@ -47,6 +51,10 @@ function trocar(figTrocar) {
 
 function faltam(figfaltam) {
   enviaFigurinhaFaltam(figfaltam)
+}
+
+function enviarDados(cidade) {
+  enviaDados(cidade)
 }
 
 function cadastro(email, senha, nome, cidade, estado, telefone) {

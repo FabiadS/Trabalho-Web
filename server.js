@@ -149,9 +149,6 @@ wss.on("connection", async function connection(ws) {
         break
       }
 
-
-
-
       case "cadastro":
         ws.id = m.id;
         ws.passwd = m.passwd;
@@ -207,7 +204,6 @@ wss.on("connection", async function connection(ws) {
         break;
       }
     }
-
     console.log(
       "Cliente desconectou. Atualmente existem " +
       clientesOnline.length +

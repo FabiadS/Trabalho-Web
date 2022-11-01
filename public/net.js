@@ -123,6 +123,17 @@ function onMessage(evt) {
         }, 3000)
       }
       break
+    case 'match':
+      if (msg.valor == 'sucesso_match') {
+        mostra('tela-mostra-match')
+      } else {
+        mostra('tela-falha-match')
+        websocket.close()
+        setTimeout(function () {
+          mostra('tela-mostra-menu')
+        }, 3000)
+      }
+      break
   }
 }
 

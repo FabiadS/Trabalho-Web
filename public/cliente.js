@@ -31,7 +31,7 @@ window.addEventListener('DOMContentLoaded', event => {
   O('botao-menu-match').addEventListener('click', function () {
     let cidade = O('tela-cadastro-cidade').value
     enviarDados(cidade)
-    mostra('tela-mostra-match')
+    console.log("enviando a cidade")
   })
 
   O('botao-menu-figurinhasTrocar').addEventListener('click', function () {

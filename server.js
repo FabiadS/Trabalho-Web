@@ -109,6 +109,7 @@ wss.on("connection", async function connection(ws) {
           );
 
           dbo.collection("Usuarios").updateOne(query, newValues, function(err, res){
+            console.log(err)
             console.log("1 document updated");
             console.log("sucesso trocando figurinhas");
           })

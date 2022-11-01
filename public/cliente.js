@@ -29,7 +29,9 @@ window.addEventListener('DOMContentLoaded', event => {
   })
 
   O('botao-menu-match').addEventListener('click', function () {
-    mostra('tela-mostra-match')
+    let cidade = O('tela-cadastro-cidade').value
+    enviarDados(cidade)
+    console.log("enviando a cidade")
   })
 
   O('botao-menu-figurinhasTrocar').addEventListener('click', function () {

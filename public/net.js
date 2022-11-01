@@ -98,7 +98,7 @@ function onMessage(evt) {
       }
       break
 
-      case 'faltamFigurinha':
+    case 'faltamFigurinha':
       if (msg.valor == 'sucessofaltam') {
       } else {
         mostra('tela-falha')

@@ -149,44 +149,6 @@ wss.on("connection", async function connection(ws) {
         break
       }
 
-<<<<<<< HEAD
-=======
-      case 'match': {
-        ws.id = m.id;
-        ws.cidade = m.cidade;
-
-        query = { cidade: ws.cidade }
-
-        if (!ws.id) {
-          ws.send(JSON.stringify({ tipo: "match", valor: "falha" }))
-          ws.close()
-          break
-        }
-        else {
-          dbo
-            .collection("Usuarios")
-            .find(query)
-            .limit(3)
-            .toArray(function (err, result) {
-              if (err) throw err;
-              if (result[0] == undefined) {
-                ws.send(JSON.stringify({ tipo: "match", valor: "falha" }));
-                console.log("Não tem usuário cadastrado com essa cidade");
-                ws.close();
-              } else {
-                for (var a = 0; a < result.length; a++) {
-                  console.log(
-                    "Achou usuario ",
-                    result[a].email + " " + result[a].cidade
-                  );
-                }
-              }
-            });
-        }
-        break
-
-      }
->>>>>>> origin/main
       case "cadastro":
         ws.id = m.id;
         ws.passwd = m.passwd;

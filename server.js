@@ -153,6 +153,7 @@ wss.on("connection", async function connection(ws) {
         console.log("print ws.id " + ws.id)
         query = {email: ws.id }
         console.log("query é " + query)
+        var pessoas_troca = []
 
         if (!ws.id) {
           console.log("entrou aqui")
@@ -162,7 +163,6 @@ wss.on("connection", async function connection(ws) {
         }
         else {
           dbo
-
             .collection("Usuarios")
             .find(query)
             .limit(3)
@@ -179,19 +179,25 @@ wss.on("connection", async function connection(ws) {
                     result[a].email + " " + result[a].cidade
                   );
                   query_cidade = result[a].cidade
+                  query_fig_rep = result[a].figurinha_rep
+                  query_fig_preciso = result[a].figurinha_preciso
                 }
-                dbo.collection("Usuarios").find({ cidade: query_cidade }, { cidade: 1, nome: 1 }).toArray(function (err, result) {
+                dbo.collection("Usuarios").find({ cidade: query_cidade }).toArray(function (err, result) {
                   if (err) {
                     console.log(err);
                   } else {
+                    
                     for (var a = 0; a < result.length; a++) {
-                          console.log(
-                          "Achou usuario ",
-                          result[a].nome + " " + result[a].cidade
-                        );
+                      if(result[a].email != ws.id)
+                        pessoas_troca.push({nome: result[a].nome, cidade: result[a].cidade})
+                    }
+                    for(let i = 0; i < pessoas_troca.length; i++)
+                    {
+                      console.log(pessoas_troca[i])
                     }
                   }
                 });
+                
                 ws.send(JSON.stringify({ tipo: "match", valor: "sucesso_match" }));
               }
             });

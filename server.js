@@ -151,8 +151,7 @@ wss.on("connection", async function connection(ws) {
 
       case 'match': {
         console.log("print ws.id " + ws.id)
-
-        query = { email: ws.id }
+        query = {email: ws.id }
         console.log("query é " + query)
 
         if (!ws.id) {
@@ -219,6 +218,7 @@ wss.on("connection", async function connection(ws) {
           telefone: ws.telefone,
           figurinha_rep,
           figurinha_preciso
+          
         };
 
         console.log(info);

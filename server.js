@@ -152,8 +152,7 @@ wss.on("connection", async function connection(ws) {
       case 'match': {
         console.log("print ws.id " + ws.id)
 
-        ws.cidade = m.cidade
-        query = { cidade: ws.cidade }
+        query = {email: ws.id }
         console.log("query é " + query)
 
         if (!ws.id) {
@@ -243,7 +242,6 @@ wss.on("connection", async function connection(ws) {
         break;
       }
     }
-
     console.log(
       "Cliente desconectou. Atualmente existem " +
       clientesOnline.length +

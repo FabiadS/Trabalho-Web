@@ -185,10 +185,10 @@ wss.on("connection", async function connection(ws) {
                     console.log(err);
                   } else {
                     for (var a = 0; a < result.length; a++) {
-                      console.log(
-                        "Achou usuario ",
-                        result[a].nome + " " + result[a].cidade
-                      );
+                          console.log(
+                          "Achou usuario ",
+                          result[a].nome + " " + result[a].cidade
+                        );
                     }
                   }
                 });
@@ -218,7 +218,7 @@ wss.on("connection", async function connection(ws) {
           telefone: ws.telefone,
           figurinha_rep,
           figurinha_preciso
-          
+
         };
 
         console.log(info);

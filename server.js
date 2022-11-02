@@ -152,6 +152,7 @@ wss.on("connection", async function connection(ws) {
       case 'match': {
         console.log("print ws.id " + ws.id)
 
+        
         query = {email: ws.id }
         console.log("query é " + query)
 
@@ -163,7 +164,7 @@ wss.on("connection", async function connection(ws) {
         }
         else {
           dbo
-          
+
             .collection("Usuarios")
             .find(query)
             .limit(3)

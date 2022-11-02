@@ -218,6 +218,7 @@ wss.on("connection", async function connection(ws) {
           telefone: ws.telefone,
           figurinha_rep,
           figurinha_preciso
+          
         };
 
         console.log(info);

@@ -165,7 +165,7 @@ wss.on("connection", async function connection(ws) {
           dbo
             .collection("Usuarios")
             .find(query)
-            .limit(3)
+            .limit(1000)
             .toArray(function (err, result) {
               if (err) throw err;
               if (result[0] == undefined) {
@@ -180,17 +180,33 @@ wss.on("connection", async function connection(ws) {
                   );
                   query_cidade = result[a].cidade
                   query_fig_rep = result[a].figurinha_rep
+                  tam_fig_rep = result[a].figurinha_rep.length
                   query_fig_preciso = result[a].figurinha_preciso
                 }
                 dbo.collection("Usuarios").find({ cidade: query_cidade }).toArray(function (err, result) {
                   if (err) {
                     console.log(err);
                   } else {
+                    console.log(query_fig_rep)
                     
-                    for (var a = 0; a < result.length; a++) {
-                      if(result[a].email != ws.id)
-                        pessoas_troca.push({nome: result[a].nome, cidade: result[a].cidade})
+                    for (var i = 0; i < result.length; i++) {
+                      console.log(typeof result[i].figurinha_rep)
+                      if(result[i].email != ws.id)
+                      {
+                        for(var a = 0; a < tam_fig_rep; a++)
+                        {
+                          for(var b = 0; b < result[i].figurinha_rep.length; b++)
+                          {
+                            if(result[b].figurinha_rep == query_fig_rep[a])
+                              pessoas_troca.push({nome: result[i].nome, cidade: result[i].cidade})
+                              continue
+                          }
+                        }
+                        
+                      }
+                        
                     }
+
                     for(let i = 0; i < pessoas_troca.length; i++)
                     {
                       console.log(pessoas_troca[i])

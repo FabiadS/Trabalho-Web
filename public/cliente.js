@@ -60,6 +60,10 @@ window.addEventListener('DOMContentLoaded', event => {
   })
 
 
+  O('voltar_menu').addEventListener('click', function () {
+    mostra('tela-mostra-menu')
+  })
+
 
   O('botao-menu-logout').addEventListener('click', function () {
     fazLogout()

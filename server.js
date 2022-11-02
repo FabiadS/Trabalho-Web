@@ -178,7 +178,20 @@ wss.on("connection", async function connection(ws) {
                     "Achou usuario ",
                     result[a].email + " " + result[a].cidade
                   );
+                  query_cidade = result[a].cidade
                 }
+                dbo.collection("Usuarios").find({ cidade: query_cidade }, { cidade: 1, nome: 1 }).toArray(function (err, result) {
+                  if (err) {
+                    console.log(err);
+                  } else {
+                    for (var a = 0; a < result.length; a++) {
+                      console.log(
+                        "Achou usuario ",
+                        result[a].nome + " " + result[a].cidade
+                      );
+                    }
+                  }
+                });
                 ws.send(JSON.stringify({ tipo: "match", valor: "sucesso_match" }));
               }
             });

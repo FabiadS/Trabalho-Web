@@ -163,6 +163,7 @@ wss.on("connection", async function connection(ws) {
         }
         else {
           dbo
+
             .collection("Usuarios")
             .find(query)
             .limit(3)
@@ -213,7 +214,7 @@ wss.on("connection", async function connection(ws) {
           email: ws.id,
           senha: ws.passwd,
           nome: ws.nome,
-          cidade: ws.cidade,
+          cidade: String(ws.cidade).toUpperCase(),
           estado: String(ws.estado).toUpperCase(),
           telefone: ws.telefone,
           figurinha_rep,

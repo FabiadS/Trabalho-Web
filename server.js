@@ -181,6 +181,7 @@ wss.on("connection", async function connection(ws) {
                   query_fig_rep = result[a].figurinha_rep
                   tam_fig_rep = Object.values(result[a].figurinha_rep).length
                   query_fig_preciso = result[a].figurinha_preciso
+                  tam_fig_preciso = Object.values(result[a].figurinha_preciso).length
                 }
                 //query_fig_rep_tam = Object.values(query_fig_rep).length
                 //console.log("tipo do query_fig_rep " +  query_fig_rep_tam)
@@ -191,11 +192,13 @@ wss.on("connection", async function connection(ws) {
                     for (var i = 0; i < result.length; i++) {
                       if(result[i].email != ws.id)
                       {
-                        for(var a = 0; a < tam_fig_rep; a++)
+                        for(var a = 0; a < tam_fig_preciso; a++)
                         {
                           for(var b = 0; b < Object.values(result[i].figurinha_rep).length; b++)
                           {
-                            if(result[b].figurinha_rep == query_fig_rep[a])
+                            console.log(query_fig_preciso[a])
+                            console.log(result[i].figurinha_rep[b])
+                            if(result[i].figurinha_rep[b] == query_fig_preciso[a])
                             {
                               pessoas_troca.push({nome: result[i].nome, cidade: result[i].cidade})
                               console.log("Match")

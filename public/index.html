@@ -12,6 +12,21 @@
 	<script type="text/javascript" src="net.js"></script>
 	<script type="text/javascript" src="cliente.js"></script>
 	<link rel="stylesheet" href="index.css">
+
+	<script>
+		function fun() {
+			document.getElementById('tela-login-ID').value = '';
+			document.getElementById('tela-login-passwd').value = '';
+			document.getElementById('tela-cadastro-ID').value = '';
+			document.getElementById('tela-cadastro-passwd').value = '';
+			document.getElementById('tela-cadastro-nome').value = '';
+			document.getElementById('tela-cadastro-cidade').value = '';
+			document.getElementById('tela-cadastro-estado').value = '';
+			document.getElementById('tela-cadastro-telefone').value = '';
+			document.getElementById('input-atualizaTrocas').value = '';
+			document.getElementById('input-atualizaFaltam').value = '';
+		}
+	</script>
 </head>
 
 <Body>
@@ -37,10 +52,10 @@
 
 		E-mail: <input type="text" id="tela-cadastro-ID" />
 		Senha: <input type="text" id="tela-cadastro-passwd" />
-		Nome: <input type="text" id="tela-cadastro-nome">
-		Cidade: <input type="text" id="tela-cadastro-cidade">
-		Estado: <input type="text" id="tela-cadastro-estado" maxlength="2">
-		Telefone: <input type="text" id="tela-cadastro-telefone">
+		Nome: <input type="text" id="tela-cadastro-nome" />
+		Cidade: <input type="text" id="tela-cadastro-cidade" />
+		Estado: <input type="text" id="tela-cadastro-estado" maxlength="2" />
+		Telefone: <input type="text" id="tela-cadastro-telefone" />
 		<button id="tela-cadastro-voltar">Voltar</button>
 		<button id="tela-cadastro-cadastrar">Cadastrar</button>
 	</div>
@@ -50,9 +65,9 @@
 
 		<button id="botao-menu-meuAlbum"> Meu Album</button>
 		<button id="botao-menu-figurinhasTrocar"> Atualiza figurinhas para trocar </button>
-		<button id="botao-menu-figurinhasMinhas"> Atualiza figurinhas minhas </button>
+		<button id="botao-menu-figurinhasMinhas"> Atualiza figurinhas preciso </button>
 		<button id="botao-menu-match">Match</button>
-		<button id="botao-menu-logout"> Faz logout </button>
+		<button id="botao-menu-logout" onclick="fun()"> Faz logout </button>
 	</div>
 	<div class="tela" id="tela-mostra-album">
 		Aqui mostra o album
@@ -90,9 +105,6 @@
 		Não foi possível fazer match das suas figurinhas porque ambas as partes não se beneficiariam.
 		Atualize suas figurinhas.
 	</div>
-
-
-
 
 </Body>
 

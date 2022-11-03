@@ -152,9 +152,8 @@ wss.on("connection", async function connection(ws) {
       case 'match': {
         console.log("print ws.id " + ws.id)
         query = {email: ws.id }
+        pessoas_troca = []
         console.log("query é " + query)
-        var pessoas_troca = []
-
         if (!ws.id) {
           console.log("entrou aqui")
           ws.send(JSON.stringify({ tipo: "match", valor: "falha" }))
@@ -180,26 +179,28 @@ wss.on("connection", async function connection(ws) {
                   );
                   query_cidade = result[a].cidade
                   query_fig_rep = result[a].figurinha_rep
-                  tam_fig_rep = result[a].figurinha_rep.length
+                  tam_fig_rep = Object.values(result[a].figurinha_rep).length
                   query_fig_preciso = result[a].figurinha_preciso
                 }
+                //query_fig_rep_tam = Object.values(query_fig_rep).length
+                //console.log("tipo do query_fig_rep " +  query_fig_rep_tam)
                 dbo.collection("Usuarios").find({ cidade: query_cidade }).toArray(function (err, result) {
                   if (err) {
                     console.log(err);
                   } else {
-                    console.log(query_fig_rep)
-                    
                     for (var i = 0; i < result.length; i++) {
-                      console.log(typeof result[i].figurinha_rep)
                       if(result[i].email != ws.id)
                       {
                         for(var a = 0; a < tam_fig_rep; a++)
                         {
-                          for(var b = 0; b < result[i].figurinha_rep.length; b++)
+                          for(var b = 0; b < Object.values(result[i].figurinha_rep).length; b++)
                           {
                             if(result[b].figurinha_rep == query_fig_rep[a])
+                            {
                               pessoas_troca.push({nome: result[i].nome, cidade: result[i].cidade})
+                              console.log("Match")
                               continue
+                            }
                           }
                         }
                         

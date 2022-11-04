@@ -177,15 +177,23 @@ wss.on("connection", async function connection(ws) {
                     "Achou usuario ",
                     result[a].email + " " + result[a].cidade
                   );
+                  query_estado = result[a].estado
                   query_cidade = result[a].cidade
                   query_fig_rep = result[a].figurinha_rep
-                  tam_fig_rep = Object.values(result[a].figurinha_rep).length
                   query_fig_preciso = result[a].figurinha_preciso
-                  tam_fig_preciso = Object.values(result[a].figurinha_preciso).length
+                  if(result[a].figurinha_preciso == null || result[a].figurinha_rep == null)
+                  {
+                    tam_fig_rep = 0
+                    tam_fig_preciso = 0
+                  }else
+                  {
+                    tam_fig_rep = Object.values(result[a].figurinha_rep).length
+                    tam_fig_preciso = Object.values(result[a].figurinha_preciso).length
+                  }
+                  console.log(query_estado)
                 }
-                //query_fig_rep_tam = Object.values(query_fig_rep).length
-                //console.log("tipo do query_fig_rep " +  query_fig_rep_tam)
-                dbo.collection("Usuarios").find({ cidade: query_cidade }).toArray(function (err, result) {
+                dbo.collection("Usuarios").find({ cidade: query_cidade, estado: query_estado }).toArray(function (err, result) {
+                  console.log('olá')
                   if (err) {
                     console.log(err);
                   } else {
@@ -223,7 +231,7 @@ wss.on("connection", async function connection(ws) {
                       console.log(pessoas_troca[b].figurinha_preciso)
                       if(pessoas_troca[b].figurinha_preciso == query_fig_rep[a])
                       {
-                        console.log("Segundo Match")
+                        console.log(pessoas_troca[b].nome)
                         continue
                       }
                     }

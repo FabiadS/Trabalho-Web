@@ -12,8 +12,8 @@ function enviaFigurinha(figtrocas) {
   websocket.send(JSON.stringify({ tipo: 'trocarFigurinha', figtrocas: figtrocas }))
 }
 
-function enviaDados(cidade) {
-  websocket.send(JSON.stringify({ tipo: 'match', cidade: cidade }))
+function enviaDados(id) {
+  websocket.send(JSON.stringify({ tipo: 'match', id: id }))
 }
 function enviaFigurinhaFaltam(figfaltam) {
   websocket.send(JSON.stringify({ tipo: 'faltamFigurinha', figfaltam: figfaltam }))
@@ -53,8 +53,8 @@ function faltam(figfaltam) {
   enviaFigurinhaFaltam(figfaltam)
 }
 
-function enviarDados(cidade) {
-  enviaDados(cidade)
+function enviarDados(id) {
+  enviaDados(id)
 }
 
 function cadastro(email, senha, nome, cidade, estado, telefone) {
@@ -100,7 +100,7 @@ function onMessage(evt) {
         mostra('tela-mostra-menu')
       } else {
         mostra('tela-falha')
-        websocket.close()
+        //websocket.close()
         setTimeout(function () {
           mostra('tela-login')
         }, 3000)
@@ -112,7 +112,7 @@ function onMessage(evt) {
         mostra('tela-mostra-menu')
       } else {
         mostra('tela-falha')
-        websocket.close()
+        //websocket.close()
         setTimeout(function () {
           mostra('tela-login')
         }, 3000)
@@ -136,7 +136,6 @@ function onMessage(evt) {
         mostra('tela-mostra-match')
       } else {
         mostra('tela-falha-match')
-        websocket.close()
         setTimeout(function () {
           mostra('tela-mostra-menu')
         }, 3000)

@@ -194,26 +194,38 @@ wss.on("connection", async function connection(ws) {
                       {
                         for(var a = 0; a < tam_fig_preciso; a++)
                         {
-                          for(var b = 0; b < Object.values(result[i].figurinha_rep).length; b++)
+                          if(result[i].figurinha_rep != null)
                           {
-                            console.log(query_fig_preciso[a])
-                            console.log(result[i].figurinha_rep[b])
-                            if(result[i].figurinha_rep[b] == query_fig_preciso[a])
+                            for(var b = 0; b < Object.values(result[i].figurinha_rep).length; b++)
                             {
-                              pessoas_troca.push({nome: result[i].nome, cidade: result[i].cidade})
-                              console.log("Match")
-                              continue
+                              if(result[i].figurinha_rep[b] == query_fig_preciso[a])
+                              {
+                                pessoas_troca.push({nome: result[i].nome, 
+                                  cidade: result[i].cidade, 
+                                  telefone: result[i].telefone,
+                                  figurinha_rep: result[i].figurinha_rep,
+                                  figurinha_preciso: result[i].figurinha_preciso
+                                })
+                                console.log("Primeiro Match")
+                                continue
+                              }
                             }
                           }
                         }
-                        
                       }
-                        
                     }
-
-                    for(let i = 0; i < pessoas_troca.length; i++)
+                  }
+                  for(var a = 0; a < tam_fig_rep; a++)
+                  {
+                    for(var b = 0; b < pessoas_troca.length; b++)
                     {
-                      console.log(pessoas_troca[i])
+                      console.log(query_fig_preciso[a])
+                      console.log(pessoas_troca[b].figurinha_preciso)
+                      if(pessoas_troca[b].figurinha_preciso == query_fig_rep[a])
+                      {
+                        console.log("Segundo Match")
+                        continue
+                      }
                     }
                   }
                 });
@@ -221,7 +233,6 @@ wss.on("connection", async function connection(ws) {
                 ws.send(JSON.stringify({ tipo: "match", valor: "sucesso_match" }));
               }
             });
-
         }
         break
 

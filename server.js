@@ -190,8 +190,7 @@ wss.on("connection", async function connection(ws) {
                   }
                   console.log(query_estado)
                 }
-                dbo.collection("Usuarios").find({ cidade: query_cidade, estado: query_estado }).toArray(function (err, result) {
-                  console.log('olá')
+              dbo.collection("Usuarios").find({ cidade: query_cidade, estado: query_estado}).toArray(function (err, result) {
                   if (err) {
                     console.log(err);
                   } else {
@@ -215,18 +214,18 @@ wss.on("connection", async function connection(ws) {
                           }
                         }
                       }
-                    }
-                  }
-                  for (var a = 0; a < tam_fig_rep; a++) {
-                    for (var b = 0; b < pessoas_troca.length; b++) {
-                      console.log(query_fig_preciso[a])
-                      console.log(pessoas_troca[b].figurinha_preciso)
-                      if (pessoas_troca[b].figurinha_preciso == query_fig_rep[a]) {
-                        console.log(pessoas_troca[b].nome)
-                        continue
+                      for (var a = 0; a < tam_fig_rep; a++) {
+                        for (var b = 0; b < pessoas_troca.length; b++) {
+                          console.log(query_fig_preciso[a])
+                          console.log(pessoas_troca[b].figurinha_preciso)
+                          if (pessoas_troca[b].figurinha_preciso == query_fig_rep[a]) {
+                            console.log(pessoas_troca[b].nome)
+                            continue
+                          }
+                        }
                       }
                     }
-                  }
+                    }
                 });
                 if (pessoas_troca.length == 0) {
                   ws.send(JSON.stringify({ tipo: "match", valor: "falha" }));

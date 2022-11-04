@@ -24,14 +24,10 @@ window.addEventListener('DOMContentLoaded', event => {
     mostra('tela-login')
   })
 
-  O('botao-menu-meuAlbum').addEventListener('click', function () {
-    mostra('tela-mostra-album')
-  })
-
   O('botao-menu-match').addEventListener('click', function () {
-    let cidade = O('tela-cadastro-cidade').value
-    enviarDados(cidade)
-    console.log("enviando a cidade")
+    let id = O('tela-login-ID').value
+    enviarDados(id)
+    console.log("match")
   })
 
   O('botao-menu-figurinhasTrocar').addEventListener('click', function () {

@@ -209,6 +209,11 @@ wss.on("connection", async function connection(ws) {
                                 console.log("Primeiro Match")
                                 continue
                               }
+                              else{
+                                ws.send(JSON.stringify({ tipo: "match", valor: "falha" }));
+                                console.log("Verifique suas figurinhas");
+                                ws.close();
+                              }
                             }
                           }
                         }
@@ -225,6 +230,11 @@ wss.on("connection", async function connection(ws) {
                       {
                         console.log("Segundo Match")
                         continue
+                      }
+                      else{
+                        ws.send(JSON.stringify({ tipo: "match", valor: "falha" }));
+                        console.log("Verifique suas figurinhas");
+                        ws.close();
                       }
                     }
                   }

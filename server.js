@@ -152,7 +152,7 @@ wss.on("connection", async function connection(ws) {
       case 'match': {
         console.log("print ws.id " + ws.id)
         query = { email: ws.id }
-        pessoas_troca = []
+        let pessoas_troca = []
         console.log("query é " + query)
         if (!ws.id) {
           console.log("entrou aqui")
@@ -190,8 +190,8 @@ wss.on("connection", async function connection(ws) {
                   }
                   console.log(query_estado)
                 }
-                dbo.collection("Usuarios").find({ cidade: query_cidade, estado: query_estado }).toArray(function (err, result) {
-                  console.log('olá')
+              dbo.collection("Usuarios").find({cidade: query_cidade, estado: query_estado}).toArray(function (err, result) {
+                console.log('olá')
                   if (err) {
                     console.log(err);
                   } else {
@@ -200,6 +200,8 @@ wss.on("connection", async function connection(ws) {
                         for (var a = 0; a < tam_fig_preciso; a++) {
                           if (result[i].figurinha_rep != null) {
                             for (var b = 0; b < Object.values(result[i].figurinha_rep).length; b++) {
+                              console.log(result[i].figurinha_rep[b])
+                              console.log(query_fig_preciso[a])
                               if (result[i].figurinha_rep[b] == query_fig_preciso[a]) {
                                 pessoas_troca.push({
                                   nome: result[i].nome,
@@ -208,7 +210,10 @@ wss.on("connection", async function connection(ws) {
                                   figurinha_rep: result[i].figurinha_rep,
                                   figurinha_preciso: result[i].figurinha_preciso
                                 })
+                                console.log("pessoas tam 1: " + pessoas_troca.length)
                                 console.log("Primeiro Match")
+                                console.log(result[i].email)
+                                console.log(ws.id)
                                 continue
                               }
                             }
@@ -216,30 +221,32 @@ wss.on("connection", async function connection(ws) {
                         }
                       }
                     }
-                  }
-                  for (var a = 0; a < tam_fig_rep; a++) {
-                    for (var b = 0; b < pessoas_troca.length; b++) {
-                      console.log(query_fig_preciso[a])
-                      console.log(pessoas_troca[b].figurinha_preciso)
-                      if (pessoas_troca[b].figurinha_preciso == query_fig_rep[a]) {
-                        console.log(pessoas_troca[b].nome)
-                        continue
+                    }
+                    for (var a = 0; a < tam_fig_rep; a++) {
+                      for (var b = 0; b < pessoas_troca.length; b++) {
+                        console.log("query_fig_pre: " + query_fig_preciso[a])
+                        console.log("query_fig_pre pessoa troca: " + pessoas_troca[b].figurinha_preciso)
+                        if (pessoas_troca[b].figurinha_preciso[a] == query_fig_rep[a]) {
+                          console.log("nome: ", pessoas_troca[b].nome)
+                          continue
+                        }
                       }
                     }
-                  }
+                    if (pessoas_troca.length == 0) {
+                      ws.send(JSON.stringify({ tipo: "match", valor: "falha" }));
+                      console.log("Verifique suas figurinhas");
+                    }
+                    else {
+                      ws.send(JSON.stringify({ tipo: "match", valor: "sucesso_match" }));
+                    }
                 });
-                if (pessoas_troca.length == 0) {
-                  ws.send(JSON.stringify({ tipo: "match", valor: "falha" }));
-                  console.log("Verifique suas figurinhas");
-                }
-                else {
-                  ws.send(JSON.stringify({ tipo: "match", valor: "sucesso_match" }));
-                }
+                console.log("pessoas tam: " + pessoas_troca.length)
+
+
               }
             });
         }
         break
-
       }
       case "cadastro":
         ws.id = m.id;

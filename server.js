@@ -151,7 +151,7 @@ wss.on("connection", async function connection(ws) {
 
       case 'match': {
         console.log("print ws.id " + ws.id)
-        query = {email: ws.id }
+        query = { email: ws.id }
         pessoas_troca = []
         console.log("query é " + query)
         if (!ws.id) {
@@ -181,12 +181,10 @@ wss.on("connection", async function connection(ws) {
                   query_cidade = result[a].cidade
                   query_fig_rep = result[a].figurinha_rep
                   query_fig_preciso = result[a].figurinha_preciso
-                  if(result[a].figurinha_preciso == null || result[a].figurinha_rep == null)
-                  {
+                  if (result[a].figurinha_preciso == null || result[a].figurinha_rep == null) {
                     tam_fig_rep = 0
                     tam_fig_preciso = 0
-                  }else
-                  {
+                  } else {
                     tam_fig_rep = Object.values(result[a].figurinha_rep).length
                     tam_fig_preciso = Object.values(result[a].figurinha_preciso).length
                   }
@@ -198,18 +196,14 @@ wss.on("connection", async function connection(ws) {
                     console.log(err);
                   } else {
                     for (var i = 0; i < result.length; i++) {
-                      if(result[i].email != ws.id)
-                      {
-                        for(var a = 0; a < tam_fig_preciso; a++)
-                        {
-                          if(result[i].figurinha_rep != null)
-                          {
-                            for(var b = 0; b < Object.values(result[i].figurinha_rep).length; b++)
-                            {
-                              if(result[i].figurinha_rep[b] == query_fig_preciso[a])
-                              {
-                                pessoas_troca.push({nome: result[i].nome, 
-                                  cidade: result[i].cidade, 
+                      if (result[i].email != ws.id) {
+                        for (var a = 0; a < tam_fig_preciso; a++) {
+                          if (result[i].figurinha_rep != null) {
+                            for (var b = 0; b < Object.values(result[i].figurinha_rep).length; b++) {
+                              if (result[i].figurinha_rep[b] == query_fig_preciso[a]) {
+                                pessoas_troca.push({
+                                  nome: result[i].nome,
+                                  cidade: result[i].cidade,
                                   telefone: result[i].telefone,
                                   figurinha_rep: result[i].figurinha_rep,
                                   figurinha_preciso: result[i].figurinha_preciso
@@ -217,38 +211,31 @@ wss.on("connection", async function connection(ws) {
                                 console.log("Primeiro Match")
                                 continue
                               }
-                              else{
-                                ws.send(JSON.stringify({ tipo: "match", valor: "falha" }));
-                                console.log("Verifique suas figurinhas");
-                                ws.close();
-                              }
                             }
                           }
                         }
                       }
                     }
                   }
-                  for(var a = 0; a < tam_fig_rep; a++)
-                  {
-                    for(var b = 0; b < pessoas_troca.length; b++)
-                    {
+                  for (var a = 0; a < tam_fig_rep; a++) {
+                    for (var b = 0; b < pessoas_troca.length; b++) {
                       console.log(query_fig_preciso[a])
                       console.log(pessoas_troca[b].figurinha_preciso)
-                      if(pessoas_troca[b].figurinha_preciso == query_fig_rep[a])
-                      {
+                      if (pessoas_troca[b].figurinha_preciso == query_fig_rep[a]) {
                         console.log(pessoas_troca[b].nome)
                         continue
-                      }
-                      else{
-                        ws.send(JSON.stringify({ tipo: "match", valor: "falha" }));
-                        console.log("Verifique suas figurinhas");
-                        ws.close();
                       }
                     }
                   }
                 });
-                
-                ws.send(JSON.stringify({ tipo: "match", valor: "sucesso_match" }));
+                if (pessoas_troca.length == 0) {
+                  ws.send(JSON.stringify({ tipo: "match", valor: "falha" }));
+                  console.log("Verifique suas figurinhas");
+                  ws.close();
+                }
+                else {
+                  ws.send(JSON.stringify({ tipo: "match", valor: "sucesso_match" }));
+                }
               }
             });
         }

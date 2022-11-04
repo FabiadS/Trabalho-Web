@@ -37,7 +37,8 @@ window.addEventListener('DOMContentLoaded', event => {
 
   O('botao-atualizaTrocas').addEventListener('click', function () {
     let figTrocar = O('input-atualizaTrocas').value
-    let vector = figTrocar.split(',').join('')
+    let vector = figTrocar.split(',')
+    
     trocar(vector)
     console.log('input trocar figurinhas')
   })
@@ -50,7 +51,7 @@ window.addEventListener('DOMContentLoaded', event => {
 
   O('botao-atualizaFaltam').addEventListener('click', function () {
     let figQuero = O('input-atualizaFaltam').value
-    let vector = figQuero.split(',').join('')
+    let vector = figQuero.split(',')
     faltam(vector)
     console.log('input faltam figurinhas')
   })

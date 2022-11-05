@@ -1,5 +1,4 @@
 // Modulo de interface grafica
-//import {ws.troca} from './public/server.js'
 
 function O(msg) {
   return document.getElementById(msg)
@@ -37,7 +36,6 @@ function mostra_tela_match(m, info) {
 												`
   }
 
-  //messageDiv.innerHTML += `<button id="volta_menu">Voltar</button>`
   let btn = document.createElement("button");
   btn.innerHTML = "Voltar";
 

@@ -56,12 +56,6 @@ window.addEventListener('DOMContentLoaded', event => {
     console.log('input faltam figurinhas')
   })
 
-
-  // O('voltar-menu').addEventListener('click', function () {
-  //   mostra('tela-mostra-menu')
-  // })
-
-
   O('botao-menu-logout').addEventListener('click', function () {
     fazLogout()
     mostra('tela-login')

@@ -133,7 +133,8 @@ function onMessage(evt) {
       break
     case 'match':
       if (msg.valor == 'sucesso_match') {
-        mostra('tela-mostra-match')
+        mostra_tela_match("tela-mostra-match", msg.info)
+        console.log("entrando")
       } else {
         mostra('tela-falha-match')
         setTimeout(function () {

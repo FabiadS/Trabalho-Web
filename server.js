@@ -191,8 +191,8 @@ wss.on("connection", async function connection(ws) {
                   }
                   console.log(query_estado)
                 }
-              dbo.collection("Usuarios").find({cidade: query_cidade, estado: query_estado}).toArray(function (err, result) {
-                console.log('olá')
+                dbo.collection("Usuarios").find({ cidade: query_cidade, estado: query_estado }).toArray(function (err, result) {
+                  console.log('olá')
                   if (err) {
                     console.log(err);
                   } else {
@@ -225,35 +225,43 @@ wss.on("connection", async function connection(ws) {
                     pessoas_troca = pessoas_troca.filter(function (a) {
                       return !this[JSON.stringify(a)] && (this[JSON.stringify(a)] = true);
                     }, Object.create(null))
-                    }
-                    for (var a = 0; a < tam_fig_rep; a++) {
-                      for (var b = 0; b < pessoas_troca.length; b++) {
-                        console.log("query_fig_pre: " + query_fig_preciso[a])
-                        console.log("query_fig_pre pessoa troca: " + pessoas_troca[b].figurinha_preciso)
-                        if ((pessoas_troca[b].figurinha_preciso[a] == query_fig_rep[a])) {
-                          troca_final.push({
-                            nome: pessoas_troca[b].nome,
-                            cidade: pessoas_troca[b].cidade,
-                            telefone: pessoas_troca[b].telefone,
-                            figurinha_rep: pessoas_troca[b].figurinha_rep,
-                            figurinha_preciso: pessoas_troca[b].figurinha_preciso
-                          })
-                          continue
-                        }
+                  }
+                  for (var a = 0; a < tam_fig_rep; a++) {
+                    for (var b = 0; b < pessoas_troca.length; b++) {
+                      console.log("query_fig_pre: " + query_fig_preciso[a])
+                      console.log("query_fig_pre pessoa troca: " + pessoas_troca[b].figurinha_preciso)
+                      if ((pessoas_troca[b].figurinha_preciso[a] == query_fig_rep[a])) {
+                        troca_final.push({
+                          nome: pessoas_troca[b].nome,
+                          cidade: pessoas_troca[b].cidade,
+                          telefone: pessoas_troca[b].telefone,
+                          figurinha_rep: pessoas_troca[b].figurinha_rep,
+                          figurinha_preciso: pessoas_troca[b].figurinha_preciso
+                        })
+                        continue
                       }
                     }
-                    troca_final = troca_final.filter(function (a) {
-                      return !this[JSON.stringify(a)] && (this[JSON.stringify(a)] = true);
-                    }, Object.create(null))
-                    console.log(troca_final)
-                    if (troca_final.length == 0) {
-                      ws.send(JSON.stringify({ tipo: "match", valor: "falha" }));
-                      console.log("Verifique suas figurinhas");
+                  }
+                  troca_final = troca_final.filter(function (a) {
+                    return !this[JSON.stringify(a)] && (this[JSON.stringify(a)] = true);
+                  }, Object.create(null))
+                  console.log(troca_final)
+                  if (troca_final.length == 0) {
+                    ws.send(JSON.stringify({ tipo: "match", valor: "falha" }));
+                    console.log("Verifique suas figurinhas");
+                  }
+                  else {
+                    ws.troca = troca_final
+                    for (var i = 0; i < troca_final.length; i++) {
+                      console.log("ws.troca" + Object.values(ws.troca[i]))
                     }
-                    else {
-                      ws.send(JSON.stringify({ tipo: "match", valor: "sucesso_match" }));
-                    }
-                    console.log('FIIM')
+
+                    //export {ws.troca}
+                    ws.send(JSON.stringify({ tipo: "match", valor: "sucesso_match", info: ws.troca }));
+
+
+                  }
+                  console.log('FIIM')
                 });
                 console.log("pessoas tam: " + pessoas_troca.length)
 

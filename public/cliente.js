@@ -38,7 +38,7 @@ window.addEventListener('DOMContentLoaded', event => {
   O('botao-atualizaTrocas').addEventListener('click', function () {
     let figTrocar = O('input-atualizaTrocas').value
     let vector = figTrocar.split(',')
-    
+
     trocar(vector)
     console.log('input trocar figurinhas')
   })
@@ -57,9 +57,9 @@ window.addEventListener('DOMContentLoaded', event => {
   })
 
 
-  O('voltar_menu').addEventListener('click', function () {
-    mostra('tela-mostra-menu')
-  })
+  // O('voltar-menu').addEventListener('click', function () {
+  //   mostra('tela-mostra-menu')
+  // })
 
 
   O('botao-menu-logout').addEventListener('click', function () {
@@ -74,4 +74,5 @@ window.addEventListener('DOMContentLoaded', event => {
       mostra('tela-mostra-menu')
     })
   })
+
 })

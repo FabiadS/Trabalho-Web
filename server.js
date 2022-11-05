@@ -153,6 +153,7 @@ wss.on("connection", async function connection(ws) {
         console.log("print ws.id " + ws.id)
         query = { email: ws.id }
         let pessoas_troca = []
+        let troca_final = []
         console.log("query é " + query)
         if (!ws.id) {
           console.log("entrou aqui")
@@ -228,6 +229,13 @@ wss.on("connection", async function connection(ws) {
                         console.log("query_fig_pre pessoa troca: " + pessoas_troca[b].figurinha_preciso)
                         if (pessoas_troca[b].figurinha_preciso[a] == query_fig_rep[a]) {
                           console.log("nome: ", pessoas_troca[b].nome)
+                          troca_final.push({
+                            nome: pessoas_troca[b].nome,
+                            cidade: pessoas_troca[b].cidade,
+                            telefone: pessoas_troca[b].telefone,
+                            figurinha_rep: pessoas_troca[b].figurinha_rep,
+                            figurinha_preciso: pessoas_troca[b].figurinha_preciso
+                          })
                           continue
                         }
                       }

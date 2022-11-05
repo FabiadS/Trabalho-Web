@@ -222,14 +222,15 @@ wss.on("connection", async function connection(ws) {
                         }
                       }
                     }
+                    pessoas_troca = pessoas_troca.filter(function (a) {
+                      return !this[JSON.stringify(a)] && (this[JSON.stringify(a)] = true);
+                    }, Object.create(null))
                     }
                     for (var a = 0; a < tam_fig_rep; a++) {
                       for (var b = 0; b < pessoas_troca.length; b++) {
                         console.log("query_fig_pre: " + query_fig_preciso[a])
                         console.log("query_fig_pre pessoa troca: " + pessoas_troca[b].figurinha_preciso)
-                        if (pessoas_troca[b].figurinha_preciso[a] == query_fig_rep[a]) {
-                          console.log('Segundo Match')
-                          console.log("nome: ", pessoas_troca[b].nome)
+                        if ((pessoas_troca[b].figurinha_preciso[a] == query_fig_rep[a])) {
                           troca_final.push({
                             nome: pessoas_troca[b].nome,
                             cidade: pessoas_troca[b].cidade,
@@ -237,10 +238,13 @@ wss.on("connection", async function connection(ws) {
                             figurinha_rep: pessoas_troca[b].figurinha_rep,
                             figurinha_preciso: pessoas_troca[b].figurinha_preciso
                           })
-                          break
+                          continue
                         }
                       }
                     }
+                    troca_final = troca_final.filter(function (a) {
+                      return !this[JSON.stringify(a)] && (this[JSON.stringify(a)] = true);
+                    }, Object.create(null))
                     console.log(troca_final)
                     if (troca_final.length == 0) {
                       ws.send(JSON.stringify({ tipo: "match", valor: "falha" }));

@@ -212,7 +212,7 @@ wss.on("connection", async function connection(ws) {
                                 console.log("Primeiro Match")
                                 console.log(result[i].email)
                                 console.log(ws.id)
-                                break
+                                continue
                               }
                             }
                           }
@@ -225,17 +225,21 @@ wss.on("connection", async function connection(ws) {
                   }
                   for (var a = 0; a < tam_fig_rep; a++) {
                     for (var b = 0; b < pessoas_troca.length; b++) {
-                      console.log("query_fig_pre: " + query_fig_preciso[a])
-                      console.log("query_fig_pre pessoa troca: " + pessoas_troca[b].figurinha_preciso)
-                      if ((pessoas_troca[b].figurinha_preciso[a] == query_fig_rep[a])) {
-                        troca_final.push({
-                          nome: pessoas_troca[b].nome,
-                          cidade: pessoas_troca[b].cidade,
-                          telefone: pessoas_troca[b].telefone,
-                          figurinha_rep: pessoas_troca[b].figurinha_rep,
-                          figurinha_preciso: pessoas_troca[b].figurinha_preciso
-                        })
-                        continue
+                      for(var c = 0; c < Object.values(pessoas_troca[b].figurinha_preciso).length; c++)
+                      {
+                        //console.log(Object.values(pessoas_troca[b].figurinha_rep[).length)
+                        console.log("query_fig_pre: " + query_fig_rep[a])
+                        console.log("query_fig_pre pessoa troca: " + Object.values(pessoas_troca[b].figurinha_preciso))
+                        if ((pessoas_troca[b].figurinha_preciso[c] == query_fig_rep[a])) {
+                          troca_final.push({
+                            nome: pessoas_troca[b].nome,
+                            cidade: pessoas_troca[b].cidade,
+                            telefone: pessoas_troca[b].telefone,
+                            figurinha_rep: pessoas_troca[b].figurinha_rep,
+                            figurinha_preciso: pessoas_troca[b].figurinha_preciso
+                          })
+                          continue
+                        }
                       }
                     }
                   }

@@ -241,8 +241,6 @@ wss.on("connection", async function connection(ws) {
                     }
                 });
                 console.log("pessoas tam: " + pessoas_troca.length)
-
-
               }
             });
         }

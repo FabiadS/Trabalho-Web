@@ -41,6 +41,7 @@ function mostra_tela_match(m, info) {
 
   btn.addEventListener('click', function () {
     mostra('tela-mostra-menu')
+    document.getElementById('tela-mostra-match').innerHTML = '';
   })
   messageDiv.appendChild(btn);
 

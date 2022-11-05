@@ -143,8 +143,6 @@ wss.on("connection", async function connection(ws) {
             console.log("figurinhas que quero trocar inseridas");
           })
 
-          console.log("Imprimindo id do troca figurinhas" + ws.id)
-
         }
         break
       }
@@ -211,7 +209,6 @@ wss.on("connection", async function connection(ws) {
                                   figurinha_rep: result[i].figurinha_rep,
                                   figurinha_preciso: result[i].figurinha_preciso
                                 })
-                                console.log("pessoas tam 1: " + pessoas_troca.length)
                                 console.log("Primeiro Match")
                                 console.log(result[i].email)
                                 console.log(ws.id)
@@ -256,7 +253,6 @@ wss.on("connection", async function connection(ws) {
                       console.log("ws.troca" + Object.values(ws.troca[i]))
                     }
 
-                    //export {ws.troca}
                     ws.send(JSON.stringify({ tipo: "match", valor: "sucesso_match", info: ws.troca }));
 
 

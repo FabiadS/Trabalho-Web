@@ -241,7 +241,7 @@ wss.on("connection", async function connection(ws) {
                         }
                       }
                     }
-                    if (pessoas_troca.length == 0) {
+                    if (troca_final.length == 0) {
                       ws.send(JSON.stringify({ tipo: "match", valor: "falha" }));
                       console.log("Verifique suas figurinhas");
                     }

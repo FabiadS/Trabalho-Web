@@ -237,10 +237,11 @@ wss.on("connection", async function connection(ws) {
                             figurinha_rep: pessoas_troca[b].figurinha_rep,
                             figurinha_preciso: pessoas_troca[b].figurinha_preciso
                           })
-                          console.log(troca_final)
+                          break
                         }
                       }
                     }
+                    console.log(troca_final)
                     if (troca_final.length == 0) {
                       ws.send(JSON.stringify({ tipo: "match", valor: "falha" }));
                       console.log("Verifique suas figurinhas");

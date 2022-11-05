@@ -215,7 +215,7 @@ wss.on("connection", async function connection(ws) {
                                 console.log("Primeiro Match")
                                 console.log(result[i].email)
                                 console.log(ws.id)
-                                continue
+                                break
                               }
                             }
                           }
@@ -228,6 +228,7 @@ wss.on("connection", async function connection(ws) {
                         console.log("query_fig_pre: " + query_fig_preciso[a])
                         console.log("query_fig_pre pessoa troca: " + pessoas_troca[b].figurinha_preciso)
                         if (pessoas_troca[b].figurinha_preciso[a] == query_fig_rep[a]) {
+                          console.log('Segundo Match')
                           console.log("nome: ", pessoas_troca[b].nome)
                           troca_final.push({
                             nome: pessoas_troca[b].nome,
@@ -236,17 +237,18 @@ wss.on("connection", async function connection(ws) {
                             figurinha_rep: pessoas_troca[b].figurinha_rep,
                             figurinha_preciso: pessoas_troca[b].figurinha_preciso
                           })
-                          continue
+                          console.log(troca_final)
                         }
                       }
                     }
-                    if (pessoas_troca.length == 0) {
+                    if (troca_final.length == 0) {
                       ws.send(JSON.stringify({ tipo: "match", valor: "falha" }));
                       console.log("Verifique suas figurinhas");
                     }
                     else {
                       ws.send(JSON.stringify({ tipo: "match", valor: "sucesso_match" }));
                     }
+                    console.log('FIIM')
                 });
                 console.log("pessoas tam: " + pessoas_troca.length)
               }
